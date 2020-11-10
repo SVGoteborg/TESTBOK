@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TESTBOK</title>
+    <link rel="stylesheet" href="~/css/pages.css" />
+</head>
+<body>
+    <div class="" id="box-page">
+        <menu id="box-menu">
+            <div class="menu-header">
+                Meny
+            </div>
+            <ul class="menu_left" id="common_menu">
+                <li class="button" id="login">Logga in</li>
+                <li class="button_spacer"></li>
+                <li class="button" id="overview">Översikt</li>
+                <li class="button_spacer"></li>
+                <li class="button" id="search">Sök</li>
+                <li class="button_spacer"></li>
+                <li class="button" id="help">Information</li>
+            </ul>
+        </menu>
+        <main id="box-right">
+            <div id="box-top-1">
+                <div id="system-title-box">
+                    Resursbokning - 2.2.0
+                </div>
+                <div id="logged-in-as">
+                    Ej inloggad
+                </div>
+            </div>
+            <div id="box-content">
+                <div id="content-1"></div>
+                <div id="content-2">
+                    Sidinnehåll från databas, Login först
+                    <style>
+                        #login_submit_btn {
+                            margin: 10px 150px;
+                        }
+                    </style>
+
+                    <form name="login_form" class="formstyle" id="login_form">
+                        <h2>login</h2>
+
+                        <label for="username" class="left-label">Användarnamn:</label>
+                        <input class="right-input" type="text" name="username" id="username" value="$userName" tabindex=1 />
+
+                        <label for="leaderid" class="left-label">Lösenord:</label>
+                        <input class="right-input" type="password" name="pwd" id="pwd" value="" tabindex=2 />
+
+                        <button id="login_submit_btn" class="button submit_btn">Logga in</button>
+                    </form>
+                </div>
+                <div id="content-3"></div>
+                
+            </div>
+            
+        </main>
+        
+    </div>
+
+</body>
+</html>
