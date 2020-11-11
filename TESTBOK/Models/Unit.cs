@@ -14,5 +14,6 @@ namespace TESTBOK.Models
         // Shortname 3 letters
         public string ShortName { get; set; }
         public string Address { get; set; }
+        public List<Resource> Resources { get; set; }
     }
 }
