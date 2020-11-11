@@ -21,5 +21,17 @@ namespace TESTBOK.Models
         //public DbSet<Permission> Permissions { get; set; }
         //public DbSet<PermissionGroup> PermissionGroups { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Unit>()
+                .HasMany(r => r.Resources)
+                .WithOne(u => u.Unit)
+                .HasForeignKey(r => r.ResId);
+
+
+            modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 1, UnitName = "Redbergsskolan", ShortName = "RES", Address ="Redbergsplatsen" });
+
+            modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 1, ResName = "Sal 1", Info = "Lektionssal", Activity = "Teorisal", Size = 15, Bookable = true });
+        }
     }
 }
