@@ -18,7 +18,8 @@ namespace TESTBOK.Models
         public string Activity { get; set; }
         public int? Size { get; set; }
         public bool Bookable { get; set; }
-        public Unit Unit { get; set; }
+        public int UnitId { get; set; }
+        public virtual Unit Unit { get; set; }
     }
 
     
