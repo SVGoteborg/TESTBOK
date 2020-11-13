@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model UnitResViewModel
+
+<style>
 
     fieldset {
         padding: 10px;
@@ -44,8 +46,11 @@
             </div>
 
             <div class="left">
-                <input type="checkbox" class="bIDsChk" name="bIDs" id="' . $rgID . '" value="' . $rgID . '" />
-            </div>'
+                @foreach (var item in Model.UnitsList)
+                {
+                    <input type="checkbox" class="bIDsChk" name="bIDs" id="" value="@item.ShortName" />@item.ShortName
+                }
+            </div>
 
         </fieldset>
 
