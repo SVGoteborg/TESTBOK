@@ -152,6 +152,7 @@ h3 {
     border-right-color: #906A32;
     border-bottom-color: #906A32;
     border-radius: 4px;
+    text-decoration: none;
 }
 
 .button:hover {
@@ -160,6 +161,7 @@ h3 {
     border-right-color: #EEEAC6;
     border-bottom-color: #EEEAC6;
     cursor: pointer;
+    text-decoration: none;
 }
 
 #box-content {
@@ -583,3 +585,4 @@ div.small {
 .b1 {
     border: 1px solid red;
 }
+

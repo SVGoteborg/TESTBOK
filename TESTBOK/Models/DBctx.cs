@@ -23,10 +23,6 @@ namespace TESTBOK.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Unit>()
-            //    .HasMany(r => r.Resources)
-            //    .WithOne(u => u.Unit)
-            //    .HasForeignKey(r => r.ResId);
 
             modelBuilder.Entity<Resource>()
                 .HasOne(u => u.Unit)
