@@ -13,6 +13,7 @@ namespace TESTBOK.ViewModels
         public string UnitName { get; set; }
         public string ResName { get; set; }
         public Unit Unit { get; set; }
+        public IEnumerable<Unit> UnitsList { get; set; }
         public Resource Resource { get; set; }
 
         

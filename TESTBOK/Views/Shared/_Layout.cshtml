@@ -36,13 +36,13 @@
                 Meny
             </div>
             <ul class="menu_left" id="common_menu">
-                <li class="button" id="login">Logga in</li>
+                <li class="button text-center" id="login"><a class="text-dark" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
                 <li class="button_spacer"></li>
-                <li class="button" id="overview">Översikt</li>
+                <li class="button text-center" id="overview"><a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
                 <li class="button_spacer"></li>
-                <li class="button" id="search">Sök</li>
+                <li class="button text-center" id="search"><a class="text-dark" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
-                <li class="button" id="help">Information</li>
+                <li class="button text-center" id="help"><a class="nav-item text-dark" asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
             </ul>
         </nav>
         <main id="box-right">
@@ -55,10 +55,10 @@
                 </div>
             </div>
             <div id="box-content">
-                <div id="content-1"></div>
+                
                 @RenderBody()
                 
-                <div id="content-3"></div>
+                
 
             </div>
 

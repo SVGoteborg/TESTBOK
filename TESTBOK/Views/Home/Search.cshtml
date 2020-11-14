@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model UnitResViewModel
+
+<style>
 
     fieldset {
         padding: 10px;
@@ -30,138 +32,147 @@
         font-style: italic;
     }
 </style>
+<div id="content-1"></div>
+<div id="content-2">
 
-<form name="search_form" id="search_form" class="formstyle">
-    <h2>Sök lediga tider</h2>
+    <form name="search_form" id="search_form" class="formstyle">
+        <h2>Sök lediga tider</h2>
 
-    <fieldset id="building-select-field">
-        <legend>Resursgrupp</legend>
+        <fieldset id="building-select-field">
+            <legend>Resursgrupp</legend>
 
-        <div class="left">
-            <input type="checkbox" class="bIDsChk" name="bIDs" id="all" value="all" checked />Alla
-        </div>
+            <div class="left">
+                <input type="checkbox" class="bIDsChk" name="bIDs" id="all" value="all" checked />Alla
+            </div>
 
-        <div class="left">
-            <input type="checkbox" class="bIDsChk" name="bIDs" id="' . $rgID . '" value="' . $rgID . '" />
-        </div>'
+            <div class="left">
+                @foreach (var item in Model.UnitsList)
+                {
+                    <input type="checkbox" class="bIDsChk" name="bIDs" id="" value="@item.ShortName" />@item.ShortName
+                }
+            </div>
 
-    </fieldset>
+        </fieldset>
 
-    <fieldset id="select-requirements-field">
-        <legend>Egenskaper</legend>
-        <div>
-            <label for="size" class="left-label">Antal personer:</label>
-            <input type="text" class="right-input w60" name="size" id="size" size="10" value="$size" />
-            <div class="right_help_text">Hur många personer ska använda resursen?</div>
-        </div>
-        <label for="room-type" class="left-label">Typ av sal:</label>
-        <select class="right-select w120" name="room-type" id="room-type">
-            <option>resurstyp</option>
-
-        </select>
-        <div class="right_help_text">*Ej angett innebär att alla resurser visas.</div>
-    </fieldset>
-
-    <fieldset id="start-datetime-field">
-        <legend>Tid och datum</legend>
-        <div class="">
-            <label for="start-date" class="left-label w100">Datum:</label>
-            <input type="text" class="left w80" name="start-date" id="start-date" size="10" value="$date" />
-            <div class="right_help_text">Vilket datum startar bokningen?</div>
-        </div>
-
-
-        <div class="left clearLeft w190">
-            <label for="sHrs" class="left-label w100">Starttid -tim:</label>
-            <select class="w60" name="sHrs" id="sHrs">
-
-
-                for ($h = 0; $h < 24; $h++) {
-                $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
-                @*starttid*@
-                <option>. $hrs .</option>
+        <fieldset id="select-requirements-field">
+            <legend>Egenskaper</legend>
+            <div>
+                <label for="size" class="left-label">Antal personer:</label>
+                <input type="text" class="right-input w60" name="size" id="size" size="10" value="$size" />
+                <div class="right_help_text">Hur många personer ska använda resursen?</div>
+            </div>
+            <label for="room-type" class="left-label">Typ av sal:</label>
+            <select class="right-select w120" name="room-type" id="room-type">
+                <option>resurstyp</option>
 
             </select>
-        </div>
-        <div class="left w190">
-            <select class="left w60" name="sMin" id="sMin">
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-            </select>
-            <label for="sMin" class="left w100">:min.</label>
-        </div>
+            <div class="right_help_text">*Ej angett innebär att alla resurser visas.</div>
+        </fieldset>
 
-        <div class="hline left clearLeft" style="width:90%;margin:10px;"></div>
-        <div class="left clearLeft w190">
-            <label for="eHrs" class="left-label w100">Sluttid -tim:</label>
-            <select class="w60" name="eHrs" id="eHrs">
+        <fieldset id="start-datetime-field">
+            <legend>Tid och datum</legend>
+            <div class="">
+                <label for="start-date" class="left-label w100">Datum:</label>
+                <input type="text" class="left w80" name="start-date" id="start-date" size="10" value="$date" />
+                <div class="right_help_text">Vilket datum startar bokningen?</div>
+            </div>
 
-                for ($h = 0; $h < 24; $h++) {
-                $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
 
-                <option>. $hrs .</option>
-                @*sluttid*@
-            </select>
-        </div>
+            <div class="left clearLeft w190">
+                <label for="sHrs" class="left-label w100">Starttid -tim:</label>
+                <select class="w60" name="sHrs" id="sHrs">
 
-        <div class="left w190">
-            <select class="left w60" name="eMin" id="eMin">
-                <option value="00">00</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-                <option value="45">45</option>
-            </select>
-            <label for="eMin" class="left w100">:min.</label>
-        </div>
-    </fieldset>
 
-    <fieldset id="recurring-field">
-        <legend>Återkommande bokning</legend>
-        <div>
-            <label for="numWeeks" class="left-label">Antal veckor:</label>
-            <input type="text" class="right-input w40" name="numWeeks" id="numWeeks" size="10" value="$numWeeks" />
-            <div class="right_help_text">Skall bokningen återkomma flera veckor, och i så fall hur många?</div>
-        </div>
-    </fieldset>
+                    for ($h = 0; $h < 24; $h++) {
+                    $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
+                    @*starttid*@
+                    <option>. $hrs .</option>
 
-    <button id="search_submit_btn" class="button submit_btn clearLeft left" style="margin:10px 250px;">
-        Sök
-    </button>
+                </select>
+            </div>
+            <div class="left w190">
+                <select class="left w60" name="sMin" id="sMin">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label for="sMin" class="left w100">:min.</label>
+            </div>
 
-</form>
+            <div class="hline left clearLeft" style="width:90%;margin:10px;"></div>
+            <div class="left clearLeft w190">
+                <label for="eHrs" class="left-label w100">Sluttid -tim:</label>
+                <select class="w60" name="eHrs" id="eHrs">
+
+                    for ($h = 0; $h < 24; $h++) {
+                    $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
+
+                    <option>. $hrs .</option>
+                    @*sluttid*@
+                </select>
+            </div>
+
+            <div class="left w190">
+                <select class="left w60" name="eMin" id="eMin">
+                    <option value="00">00</option>
+                    <option value="15">15</option>
+                    <option value="30">30</option>
+                    <option value="45">45</option>
+                </select>
+                <label for="eMin" class="left w100">:min.</label>
+            </div>
+        </fieldset>
+
+        <fieldset id="recurring-field">
+            <legend>Återkommande bokning</legend>
+            <div>
+                <label for="numWeeks" class="left-label">Antal veckor:</label>
+                <input type="text" class="right-input w40" name="numWeeks" id="numWeeks" size="10" value="$numWeeks" />
+                <div class="right_help_text">Skall bokningen återkomma flera veckor, och i så fall hur många?</div>
+            </div>
+        </fieldset>
+
+        <button id="search_submit_btn" class="button submit_btn clearLeft left" style="margin:10px 250px;">
+            Sök
+        </button>
+
+    </form>
+
+</div>
+
+<div id="content-3"></div>
 
 <script type="text/javascript">
 
-        clearContent('#content-1');
-        clearContent('#content-3');
+    clearContent('#content-1');
+    clearContent('#content-3');
 
-	$(function() {
-            $("#start-date").datepicker();
-	});
+    $(function () {
+        $("#start-date").datepicker();
+    });
 
-        $('#search_submit_btn').unbind('click');
-        $('#search_submit_btn').click( function() {
-            var bIDcsl = $('.bIDsChk:checked').map(function(){
-                return this.id;
-            }).get().join(',');
-            $.post('part/search/s_result.php',
+    $('#search_submit_btn').unbind('click');
+    $('#search_submit_btn').click(function () {
+        var bIDcsl = $('.bIDsChk:checked').map(function () {
+            return this.id;
+        }).get().join(',');
+        $.post('part/search/s_result.php',
             {
-                bIDs:       bIDcsl,
-                roomType:   $("#room-type").val(),
-                roomSize:   $("#size").val(),
-                startDate:  $("#start-date").val(),
-                sHrs:       $("#sHrs").val(),
-                sMin:       $("#sMin").val(),
-                eHrs:       $("#eHrs").val(),
-                eMin:       $("#eMin").val(),
-                numWeeks:   $("#numWeeks").val()
+                bIDs: bIDcsl,
+                roomType: $("#room-type").val(),
+                roomSize: $("#size").val(),
+                startDate: $("#start-date").val(),
+                sHrs: $("#sHrs").val(),
+                sMin: $("#sMin").val(),
+                eHrs: $("#eHrs").val(),
+                eMin: $("#eMin").val(),
+                numWeeks: $("#numWeeks").val()
             },
-            function(data) {
+            function (data) {
                 $('#content-3').html(data);
             });
-            return false;
-        });
+        return false;
+    });
 
 </script>

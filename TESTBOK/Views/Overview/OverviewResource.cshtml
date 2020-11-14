@@ -1,0 +1,311 @@
+﻿
+<style>
+    .vlog {
+        border: 1px solid #906A32;
+        background-color: #EEEAC6;
+        padding: 10px;
+        font-size: 80%;
+    }
+</style>
+
+<div id="content-1"></div>
+<div id="content-2">
+
+    <style>
+        .morning_block {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 100%;
+            background-color: #EEEEEE;
+            padding: 0;
+            margin: 0;
+            opacity: 0.6;
+        }
+
+        .evening_block {
+            position: absolute;
+            top: 0;
+            width: 12px;
+            height: 100%;
+            left: 84px;
+            background-color: #EEEEEE;
+            padding: 0;
+            margin: 0;
+            opacity: 0.6;
+        }
+
+        .selected-day {
+            background-color: #d6e5bf;
+        }
+
+        .room_id_btn {
+            background-color: #b3cb8e;
+        }
+
+            .room_id_btn:hover {
+                background-color: #FFFF99;
+                cursor: pointer;
+            }
+
+        .wkNumSpan {
+            left: 20px;
+        }
+
+        .wk_selector {
+            width: 60px;
+        }
+    </style>
+
+    <h3>Veckoöversikt: ResourceName och ResourceGroupName</h3>
+    // printer view button.
+    <div class="icon-box">
+        <div class="icon-btn print_btn" id="print-button" data-cmd="print">
+            <img src="~/led16/printer.png" title="Skriv ut" alt="Skriv ut" />
+        </div>
+    </div>
+
+    <div id="wrd-nav-box_top" class="wrd-nav-box">
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')"
+             title="Föregående vecka(' . $prevWk . ')">
+            &lt;&lt;&lt; -1 Vecka
+        </div>
+        <div id="to-overview-btn_top" class="button left to-overview-btn">Översikt</div>
+        <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
+        <input id="date-select-input_top" type="text" class="left date-select-input" value="' . $dateToUse . '" />
+        <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
+        <div id="wk_select_top" class="left week-num">
+            <select id="wk_selector_top" class="wk_selector">
+                for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
+                    selected = "";
+                    if ($ovWeek == $w) {
+                        selected = "selected"
+                    }
+                    <option selected>' . $w . '</option>
+                }
+            </select>
+        </div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(' . $nextWk . ')"
+             title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
+    </div>
+
+    <div class="list-header-box">
+        <div class="data-item-short">Grupp</div>
+        <div class="data-item-short">Vecka</div>
+        <div class="data-item">Måndag</div>
+        <div class="data-item">Tisdag</div>
+        <div class="data-item">Onsdag</div>
+        <div class="data-item">Torsdag</div>
+        <div class="data-item">Fredag</div>
+        <div class="data-item">Lördag</div>
+        <div class="data-item">Söndag</div>
+    </div>
+
+    <div class="hidden">
+        <div id="rg' . $resourceGroup->getResourceGroupID() . '"></div>
+    </div>
+    <div id="week-overview-list">
+        <div class="list-row " data-rID=" . $rID . "></div>
+
+        <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
+            <span></span>
+        </div>
+
+        // Week number field.
+        <div class="overview-item-short week_num" data-date="' . $mondayDate . '" data-rgID="' . $resource->getResourceGroupId() . '"
+             data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
+            <span class="wkNumSpan">v' . $weekNumber .'</span>
+        </div>
+        <div class="overview-item ' . $tipClass . ' ' . $isSelected . '" 
+            id="' . $id . '"
+             title=" . $resourceGroup->getResourceGroupShortName() . ' | ' . $resource->getResourceName() . ' | ' . $dt . '"
+             data-ttip="# . $tipCounter . '"
+             data-ref="part/show/view_resource_day.php"
+             data-target="#content-2"
+             data-rID="' . $resource->getResourceId() . '"
+             data-rgID=" . $resourceGroup->getResourceGroupID() . '"
+             data-date=" . $dt . '">
+            // 0:00 to 08:00 marked block.
+            <div class="morning_block"></div>
+            // 21:00 to 24:00 marked block.
+            <div class="evening_block"></div>
+        </div>
+
+        <div id="' . $tipCounter . '" class="hidden">
+            $dbk->getTooltipString();
+        </div>
+
+    </div>
+
+    <div class="list-header-box">
+        <div class="data-item-short">Grupp</div>
+        <div class="data-item-short">Vecka</div>
+        <div class="data-item">Måndag</div>
+        <div class="data-item">Tisdag</div>
+        <div class="data-item">Onsdag</div>
+        <div class="data-item">Torsdag</div>
+        <div class="data-item">Fredag</div>
+        <div class="data-item">Lördag</div>
+        <div class="data-item">Söndag</div>
+    </div>
+
+    <div id="wrd-nav-box_btn" class="wrd-nav-box">
+
+        <div id="prev-wk-btn_btn" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')" title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
+        <div id="to-overview-btn_btn" class="button left to-overview-btn">Översikt</div>
+        <label id="date-select-lbl_btn" for="date-select-input_btn" class="left date-select-lbl">Datum: </label>
+        <input id="date-select-input_btn" type="text" class="left date-select-input" value="' . $dateToUse . '" />
+        <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
+        <div id="wk_select_top" class="left week-num">
+            <select id="wk_selector_btm" class="wk_selector">
+
+
+                for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
+                    $selected = "";
+                    if ($ovWeek == $w)
+                    {
+                        $selected = 'selected="selected"
+                    }
+                    <option ' . $selected . '>' . $w . '</option>
+                }
+            </select>
+        </div>
+        <div id="next-wk-btn_btn" class="button right next-wk-btn" alt="Nästa vecka(' . $nextWk . ')" title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
+
+    </div>
+
+    <div class="clear"></div>
+
+    <script type="text/javascript">
+
+    makeOverview();
+
+    $('div.dotip').cluetip({
+        local: true,
+        hideLocal: true,
+        dropShadow: false,
+        titleAttribute: 'title',
+        cluetipClass: 'jtip',
+        width: 'auto',
+        attribute: 'data-ttip',
+        topOffset: '10',
+        leftOffset: '20',
+        positionBy: 'mouse',
+        tracking: true
+    });
+
+    $('div.dotip_building').cluetip({
+        local: true,
+        hideLocal: true,
+        dropShadow: false,
+        titleAttribute: 'title',
+        showTitle: false,
+        cluetipClass: 'jtip',
+        width: '150',
+        attribute: 'data-ttip',
+        topOffset: '10',
+        leftOffset: '20',
+        positionBy: 'mouse',
+        tracking: true
+    });
+
+    $(".date-select-input").datepicker();
+
+    $('.prev-wk-btn').unbind('click');
+    $('.prev-wk-btn').click(function() {
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/resource_overview.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            ovDate: '$prevWk'
+        },
+        function(data) {
+            $('#content-2').html(data);
+        });
+    });
+
+    $('.next-wk-btn').unbind('click');
+    $('.next-wk-btn').click(function() {
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/resource_overview.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            ovDate: '$nextWk'
+        },
+        function(data) {
+            $('#content-2').html(data);
+        });
+    });
+
+    $('.date-select-input').unbind('change');
+    $('.date-select-input').change(function() {
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/resource_overview.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            ovDate: $(this).val()
+        },
+        function(data) {
+            $('#content-2').html(data);
+        });
+    });
+
+    $('.wk_selector').unbind('change');
+    $('.wk_selector').change(function() {
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/resource_overview.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            ovWeek: $(this).val()
+        },
+        function(data) {
+            $('#content-2').html(data);
+        });
+    });
+
+    $('.overview-item').unbind('click');
+    $('.overview-item').click(function() {
+        var t = $(this);
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/view_resource_day.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            date: t.attr('data-date')
+
+        },
+        function(data) {
+                $('#content-2').html(data);
+         });
+        return false;
+    });
+
+    $('.to-overview-btn').unbind('click');
+    $('.to-overview-btn').click(function() {
+        $('#content-2').html('<h2>Laddar...</h2>');
+        $.post('part/show/overview.php',
+        {
+            rID: '$rID',
+            bID: '{$resourceGroup->getResourceGroupID()}',
+            date: '$dateToUse'
+        },
+        function(data) {
+            $('#content-2').html(data);
+        });
+    });
+
+    $('#print-button').click(function(){
+        printwin=window.open(
+            'part/printer/print_resource_overview.php?r=$rID&b={$resourceGroup->getResourceGroupID()}&ow=$ovWeek',
+            'Printer window','toolbar=1,scrollbars=1,location=1,statusbar=0,menubar=1,resizable=1,width=900,height=700');
+    });
+
+    </script>
+</div>
+
+<div id="content-3"></div>
