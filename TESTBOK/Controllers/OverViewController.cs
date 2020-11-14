@@ -10,7 +10,19 @@ namespace TESTBOK.Controllers
     public class OverViewController : Controller
     {
         // GET: OverViewController
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        // GET: OverViewController
+        public ActionResult Overview()
+        {
+            return View();
+        }
+
+        // GET: OverViewController
+        public ActionResult OverviewResource()
         {
             return View();
         }

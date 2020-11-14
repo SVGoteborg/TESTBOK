@@ -26,6 +26,21 @@ namespace TESTBOK.Controllers
             return View();
         }
 
+        public IActionResult Overview()
+        {
+
+            return View();
+        }
+        //public IActionResult Overview()
+        //{
+        //    var viewModel = new UnitResViewModel();
+        //    var unit = _context.Units.ToList();
+        //    IEnumerable<Unit> units = unit;
+        //    viewModel.UnitsList = units;
+
+        //    return View(viewModel);
+        //}
+
         public IActionResult Search()
         {
             var viewModel = new UnitResViewModel();
