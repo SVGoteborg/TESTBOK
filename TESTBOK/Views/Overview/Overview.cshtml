@@ -1,4 +1,5 @@
-﻿
+﻿@model UnitResViewModel
+
 <style>
     .vlog {
         border: 1px solid #906A32;
@@ -6,20 +7,43 @@
         padding: 10px;
         font-size: 80%;
     }
+    .buttonsmall {
+        width: 48px;
+        height: 18px;
+        text-indent: 5px;
+        background-color: #b3cb8e;
+        border: 1px solid #EEEAC6;
+        border-right-color: #906A32;
+        border-bottom-color: #906A32;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .buttonsmall:hover {
+        background-color: #FFFF99;
+        border: 1px solid #906A32;
+        border-right-color: #EEEAC6;
+        border-bottom-color: #EEEAC6;
+        cursor: pointer;
+        text-decoration: none;
+    }
 </style>
 
 <div id="content-1"></div>
 <div id="content-2">
-    <h3>Översikt resurser i alla grupper vecka 47</h3>
+    <h3>Översikt resurser i alla grupper vecka @ViewBag.vecka</h3>
 
     <div class="icon-box">
         <div class="icon-btn print_btn" id="print-button" data-cmd="print">
             <img src="~/led16/printer.png" title="Skriv ut" />
         </div>
     </div>
-    <div class="wrd-nav-box">
-        <div class="button left bfilter selected_filter_btn" data-filter="ALL">Alla</div>
-        
+    <div class="wrd-nav-box btn-group-toggle">
+        <div class="buttonsmall left bfilter selected_filter_btn" data-filter="ALL">Alla</div>
+        @foreach (var unit in Model.UnitsList)
+        {
+            <div class="buttonsmall left bfilter" data-filter="@unit.UnitId">@unit.ShortName</div>
+        }
 
         @*<div class="button left bfilter" data-filter="1">RES</div>
         <div class="button left bfilter" data-filter="3">ÅNÄS</div>
@@ -36,9 +60,9 @@
         *@
     </div>
     <div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(2020-11-05)" title="Föregående vecka(2020-11-05)"><<< -1 Vecka</div>
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="2020-11-12">
+        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_btn" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
@@ -62,7 +86,7 @@
                 <option>47</option>
             </select>
         </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(2020-11-19)">+1 Vecka >>></div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
     </div>
 
     <div class="list-header-box">
@@ -77,47 +101,59 @@
         <div class="data-item">Söndag</div>
     </div>
     <div class="hidden"></div>
-    <div id="week-overview-list" />
-    <div class="list-row" data-rid="15">
-        <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
-        <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
-    </div>
-    <div class="list-row" data-rid="30">
-        <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
-        <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
-    </div>
-    <div class="list-row" data-rid="17">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
-    </div>
-    <div class="list-row" data-rid="18">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</a></div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
-    </div>
+    <div id="week-overview-list">
 
-    <div class="list-row" data-rid="27">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
-            <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
+        @foreach (var res in Model.ResourcesList)
+        {
+        <div class="list-row" data-rid="">
+                <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
+                <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+            <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">@res.ResName</a>
+                </div>
         </div>
-    </div>
-    <div class="list-row" data-rid="2">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
-    </div>
-    <div class="list-row" data-rid="4">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
-    </div>
-    <div class="list-row" data-rid="16">
-        <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-        <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
-    </div>
-    <div class="list-row" data-rid="19">
-        <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
-        <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
-    </div>
 
+        }
+
+        @*<div class="list-row" data-rid="15">
+            <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
+            <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
+        </div>
+        <div class="list-row" data-rid="30">
+            <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
+            <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
+        </div>
+        <div class="list-row" data-rid="17">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
+        </div>
+        <div class="list-row" data-rid="18">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
+        </div>
+
+        <div class="list-row" data-rid="27">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
+                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
+            </div>
+        </div>
+        <div class="list-row" data-rid="2">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
+        </div>
+        <div class="list-row" data-rid="4">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
+        </div>
+        <div class="list-row" data-rid="16">
+            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
+        </div>
+        <div class="list-row" data-rid="19">
+            <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
+            <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
+        </div>*@
+    </div>
     <div class="list-header-box">
         <div class="data-item-short">Grupp</div>
         <div class="data-item-short">Resurs</div>
@@ -131,9 +167,9 @@
     </div>
 
     <div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(2020-11-05)" title="Föregående vecka(2020-11-05)"><<< -1 Vecka</div>
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="2020-11-12">
+        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_btn" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
@@ -157,7 +193,7 @@
                 <option>47</option>
             </select>
         </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(2020-11-19)">+1 Vecka >>></div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
     </div>
 </div>
 
