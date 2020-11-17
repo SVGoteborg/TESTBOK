@@ -60,7 +60,7 @@
         }
     </style>
 
-    <h3>Veckoöversikt: ResourceName och ResourceGroupName</h3>
+    <h3>Veckoöversikt: @Model.Resource.ResName - @ViewBag.EnhetsAdress</h3>
     @*// printer view button.*@
     <div class="icon-box">
         <div class="icon-btn print_btn" id="print-button" data-cmd="print">
@@ -73,9 +73,10 @@
              title="Föregående vecka(' . $prevWk . ')">
             &lt;&lt;&lt; -1 Vecka
         </div>
-        <div id="to-overview-btn_top" class="button left to-overview-btn">Översikt</div>
+        <div id="to-overview-btn_top" class="button left to-overview-btn">
+        <a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="left date-select-input" value="' . $dateToUse . '" />
+        <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
         <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_top" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
@@ -115,7 +116,7 @@
             <span></span>
         </div>
 
-        // Week number field.
+        @*// Week number field.*@
         <div class="overview-item-short week_num" data-date="' . $mondayDate . '" data-rgID="' . $resource->getResourceGroupId() . '"
              data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
             <span class="wkNumSpan">v' . $weekNumber .'</span>
@@ -129,9 +130,9 @@
              data-rID="' . $resource->getResourceId() . '"
              data-rgID=" . $resourceGroup->getResourceGroupID() . '"
              data-date=" . $dt . '">
-            // 0:00 to 08:00 marked block.
+            @*// 0:00 to 08:00 marked block.*@
             <div class="morning_block"></div>
-            // 21:00 to 24:00 marked block.
+            @*// 21:00 to 24:00 marked block.*@
             <div class="evening_block"></div>
         </div>
 
@@ -156,9 +157,10 @@
     <div id="wrd-nav-box_btn" class="wrd-nav-box">
 
         <div id="prev-wk-btn_btn" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')" title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
-        <div id="to-overview-btn_btn" class="button left to-overview-btn">Översikt</div>
+        <div id="to-overview-btn_btn" class="button left to-overview-btn">
+            <a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
         <label id="date-select-lbl_btn" for="date-select-input_btn" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_btn" type="text" class="left date-select-input" value="' . $dateToUse . '" />
+        <input id="date-select-input_btn" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_top" class="left week-num">
             <select id="wk_selector_btm" class="wk_selector">

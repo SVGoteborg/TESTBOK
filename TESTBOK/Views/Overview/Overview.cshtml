@@ -27,6 +27,57 @@
         cursor: pointer;
         text-decoration: none;
     }
+
+    .morning_block {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 100%;
+        background-color: #EEEEEE;
+        padding: 0;
+        margin: 0;
+        opacity: 0.6;
+    }
+
+    .evening_block {
+        position: absolute;
+        top: 0;
+        width: 12px;
+        height: 100%;
+        left: 84px;
+        background-color: #EEEEEE;
+        padding: 0;
+        margin: 0;
+        opacity: 0.6;
+    }
+
+    .selected-day {
+        background-color: #d6e5bf;
+    }
+
+    .bfilter {
+        margin-right: 5px;
+        width: 48px;
+        margin-bottom: 5px;
+    }
+
+    .selected_filter_btn {
+        background-color: #FFFF99;
+        border-right: 1px solid #EEEAC6;
+        border-bottom: 1px solid #EEEAC6;
+        border-left: 1px solid #906A32;
+        border-top: 1px solid #906A32;
+        cursor: pointer;
+    }
+
+    .wkNumSpan {
+        left: 20px;
+    }
+
+    .wk_selector {
+        width: 60px;
+    }
 </style>
 
 <div id="content-1"></div>
@@ -42,7 +93,7 @@
         <div class="buttonsmall left bfilter selected_filter_btn" data-filter="ALL">Alla</div>
         @foreach (var unit in Model.UnitsList)
         {
-            <div class="buttonsmall left bfilter" data-filter="@unit.UnitId">@unit.ShortName</div>
+            <div class="buttonsmall left bfilter" data-filter="@unit.UnitId ">@unit.ShortName</div>
         }
 
         @*<div class="button left bfilter" data-filter="1">RES</div>
@@ -103,57 +154,70 @@
     <div class="hidden"></div>
     <div id="week-overview-list">
 
-        @foreach (var res in Model.ResourcesList)
-        {
+    @foreach (var res in Model.ResourcesList)
+    {
         <div class="list-row" data-rid="">
-                <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
-                <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
-            <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">@res.ResName</a>
+            <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
+            <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
+            </div>
+            @foreach (var wday in ViewBag.WeekDays)
+            {
+            <div class="overview-item dotip_building" data-rgid="" data-rid="">
+            @*// 0:00 to 08:00 marked block.*@
+            <div class="morning_block"></div>
+            @*// 21:00 to 24:00 marked block.*@
+            <div class="evening_block"></div>
+                <div class="data-item " data-rgid="" data-rid="" value="@wday">
+                    @wday
                 </div>
-        </div>
+            </div>
+            }
 
+        </div>
+        @*@await Html.PartialAsync("_WeekDays")*@
         }
 
-        @*<div class="list-row" data-rid="15">
-            <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
-            <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
-        </div>
-        <div class="list-row" data-rid="30">
-            <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
-            <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
-        </div>
-        <div class="list-row" data-rid="17">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
-        </div>
-        <div class="list-row" data-rid="18">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
-        </div>
-
-        <div class="list-row" data-rid="27">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
-                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
+            @*@*<div class="list-row" data-rid="15">
+                <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
+                <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
             </div>
+            <div class="list-row" data-rid="30">
+                <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
+                <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
+            </div>
+            <div class="list-row" data-rid="17">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
+            </div>
+            <div class="list-row" data-rid="18">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
+            </div>
+
+            <div class="list-row" data-rid="27">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
+                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
+                </div>
+            </div>
+            <div class="list-row" data-rid="2">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
+            </div>
+            <div class="list-row" data-rid="4">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
+            </div>
+            <div class="list-row" data-rid="16">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
+            </div>
+            <div class="list-row" data-rid="19">
+                <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
+                <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
+            </div>*@
         </div>
-        <div class="list-row" data-rid="2">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
-        </div>
-        <div class="list-row" data-rid="4">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
-        </div>
-        <div class="list-row" data-rid="16">
-            <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-            <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
-        </div>
-        <div class="list-row" data-rid="19">
-            <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
-            <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
-        </div>*@
-    </div>
     <div class="list-header-box">
         <div class="data-item-short">Grupp</div>
         <div class="data-item-short">Resurs</div>
