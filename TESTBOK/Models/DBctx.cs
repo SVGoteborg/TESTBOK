@@ -17,7 +17,7 @@ namespace TESTBOK.Models
         //public DbSet<User> Users { get; set; }
         public DbSet<Unit>  Units { get; set; }
         public DbSet<Resource> Resources { get; set; }
-        //public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         //public DbSet<UserRole> UserRoles { get; set; }
         //public DbSet<Permission> Permissions { get; set; }
         //public DbSet<PermissionGroup> PermissionGroups { get; set; }
@@ -29,6 +29,11 @@ namespace TESTBOK.Models
                 .HasOne(u => u.Unit)
                 .WithMany(r => r.Resources)
                 .HasForeignKey(u => u.UnitId);
+
+            modelBuilder.Entity<Booking>()
+                .HasOne(r => r.Resource)
+                .WithMany(b => b.Bookings)
+                .HasForeignKey(i => i.ResourceId);
 
 
             modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 1, UnitName = "Redbergsskolan", ShortName = "RES", Address = "Örngatan 6", Description ="" });
