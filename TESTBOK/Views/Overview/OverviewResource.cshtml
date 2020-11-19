@@ -81,11 +81,11 @@
         <div id="wk_select_top" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
                 for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
-                selected = "";
-                if ($ovWeek == $w) {
-                selected = "selected"
-                }
-                <option selected>' . $w . '</option>
+                    selected = "";
+                    if ($ovWeek == $w) {
+                        selected = "selected"
+                    }
+                    <option selected>' . $w . '</option>
                 }
             </select>
         </div>
@@ -111,17 +111,41 @@
     </div>
     <div id="week-overview-list">
         <div class="list-row " data-rID=" . $rID . "></div>
+        @for (int week = @ViewBag.vecka; week < @ViewBag.vecka + 30; week++)
+        {
+            <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
+                <span>@Model.Resource.ResName</span>
+            </div>
+            <div class="overview-item-short week_num" data-date="' . $mondayDate . '"
+                 data-rgID="' . $resource"
+                 data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
+                <span class="wkNumSpan">v @week</span>
+            </div>
+            @foreach (var wday in ViewBag.WeekDays)
+            {
+                <div class="overview-item dotip_building" data-rgid="" data-rid="">
+                    @*// 0:00 to 08:00 marked block.*@
+                    <div class="morning_block"></div>
+                    @*// 21:00 to 24:00 marked block.*@
+                    <div class="evening_block"></div>
+                    <div class="data-item " data-rgid="" data-rid="" value="@wday">
+                        @wday
+                    </div>
+                </div>
+            }
+        }
+            @*<div class="list-row " data-rID=" . $rID . "></div>
 
-        <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
-            <span></span>
-        </div>
-
-        @*// Week number field.*@
-        <div class="overview-item-short week_num" data-date="' . $mondayDate . '" data-rgID="' . $resource->getResourceGroupId() . '"
+            <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
+                <span></span>
+            </div>*@
+            @*// Week number field.*@
+            <!--<div class="overview-item-short week_num" data-date="' . $mondayDate . '" data-rgID="' . $resource->getResourceGroupId() . '"
              data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
             <span class="wkNumSpan">v' . $weekNumber .'</span>
-        </div>
-        <div class="overview-item ' . $tipClass . ' ' . $isSelected . '"
+            </div>
+
+            <div class="overview-item ' . $tipClass . ' ' . $isSelected . '"
              id="' . $id . '"
              title=" . $resourceGroup->getResourceGroupShortName() . ' | ' . $resource->getResourceName() . ' | ' . $dt . '"
              data-ttip="# . $tipCounter . '"
@@ -129,16 +153,16 @@
              data-target="#content-2"
              data-rID="' . $resource->getResourceId() . '"
              data-rgID=" . $resourceGroup->getResourceGroupID() . '"
-             data-date=" . $dt . '">
+             data-date=" . $dt . '">-->
             @*// 0:00 to 08:00 marked block.*@
-            <div class="morning_block"></div>
+            <!--<div class="morning_block"></div>-->
             @*// 21:00 to 24:00 marked block.*@
-            <div class="evening_block"></div>
+            <!--<div class="evening_block"></div>
         </div>
 
         <div id="' . $tipCounter . '" class="hidden">
             $dbk->getTooltipString();
-        </div>
+        </div>-->
 
     </div>
 
