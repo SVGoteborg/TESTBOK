@@ -1,0 +1,19 @@
+﻿@model UnitResViewModel
+
+    <div class="formstyle">
+
+        <h2>Resursinformation</h2>
+
+        <div class="bk_info_left">Resursgrupp: </div>
+        <div class="bk_info_right">@ViewBag.EnhetsAdress</div>
+        <div class="bk_info_right w40">@Model.Unit.ShortName</div>
+
+        <div class="bk_info_left">Namn på resurs: </div>
+        <div class="bk_info_right">@Model.Resource.ResName</div>
+
+        <div class="bk_info_left">Typ av resurs: </div>
+        <div class="bk_info_right">@Model.Resource.Info</div>
+
+        <div class="clearLeft text_info_block left"> {$resource->getResourceDescription()} </div>
+
+    </div>

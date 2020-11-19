@@ -15,7 +15,7 @@ namespace TESTBOK.ViewModels
         public Unit Unit { get; set; }
         public IEnumerable<Unit> UnitsList { get; set; }
         public Resource Resource { get; set; }
-
+        public IEnumerable<Resource> ResourcesList { get; set; }
         
     }
 }

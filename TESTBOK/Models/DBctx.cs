@@ -17,7 +17,7 @@ namespace TESTBOK.Models
         //public DbSet<User> Users { get; set; }
         public DbSet<Unit>  Units { get; set; }
         public DbSet<Resource> Resources { get; set; }
-        //public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         //public DbSet<UserRole> UserRoles { get; set; }
         //public DbSet<Permission> Permissions { get; set; }
         //public DbSet<PermissionGroup> PermissionGroups { get; set; }
@@ -29,6 +29,11 @@ namespace TESTBOK.Models
                 .HasOne(u => u.Unit)
                 .WithMany(r => r.Resources)
                 .HasForeignKey(u => u.UnitId);
+
+            modelBuilder.Entity<Booking>()
+                .HasOne(r => r.Resource)
+                .WithMany(b => b.Bookings)
+                .HasForeignKey(i => i.ResourceId);
 
 
             modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 1, UnitName = "Redbergsskolan", ShortName = "RES", Address = "Örngatan 6", Description ="" });
@@ -54,9 +59,8 @@ namespace TESTBOK.Models
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 11, ResName = "Teater", Info = "Stor sal", Activity = "Teater", Size = 0, Bookable = true, UnitId = 3 });
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 12, ResName = "Mötesrum", Info = "Mötesrum på 3e vån i Redbergsskolan", Activity = "Mötesrum", Size = 0, Bookable = true, UnitId = 6 });
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 13, ResName = "VW E-UP", Info = "Lilla bilen", Activity = "Resursbil", Size = 0, Bookable = true, UnitId = 5 });
-            modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 13, ResName = "sal 1", Info = "Lektionssal", Activity = "Teorisal", Size = 15, Bookable = true, UnitId = 4 });
+            modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 14, ResName = "sal 1", Info = "Lektionssal", Activity = "Teorisal", Size = 15, Bookable = true, UnitId = 4 });
         }
 
-        public DbSet<TESTBOK.ViewModels.UnitResViewModel> UnitResViewModel { get; set; }
     }
 }
