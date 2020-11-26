@@ -111,7 +111,7 @@
     </div>
     <div id="week-overview-list">
         <div class="list-row " data-rID=" . $rID . "></div>
-        @for (int week = @ViewBag.vecka; week < @ViewBag.vecka + 30; week++)
+        @foreach (int vecka in @ViewBag.veckor30)
         {
             <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
                 <span>@Model.Resource.ResName</span>
@@ -119,8 +119,9 @@
             <div class="overview-item-short week_num" data-date="' . $mondayDate . '"
                  data-rgID="' . $resource"
                  data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
-                <span class="wkNumSpan">v @week</span>
+                <span class="wkNumSpan">v @vecka</span>
             </div>
+
             @foreach (var wday in ViewBag.WeekDays)
             {
                 <div class="overview-item dotip_building" data-rgid="" data-rid="">
@@ -129,8 +130,8 @@
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
                     <div class="data-item " data-rgid="" data-rid="" value="@wday">
-                        @wday
-                    </div>
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@wday</a>
+</div>
                 </div>
             }
         }
