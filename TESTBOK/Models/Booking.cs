@@ -17,5 +17,8 @@ namespace TESTBOK.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        public virtual Resource Resource { get; set; }
+        public string Responsible { get; set; }
+
     }
 }

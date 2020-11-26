@@ -35,6 +35,11 @@ namespace TESTBOK.Models
                 .WithMany(ur => ur.Users)
                 .HasForeignKey(u => u.UserRoleId);
 
+            modelBuilder.Entity<Booking>()
+                .HasOne(r => r.Resource)
+                .WithMany(b => b.Bookings)
+                .HasForeignKey(i => i.ResourceId);
+
 
             modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 1, UnitName = "Redbergsskolan", ShortName = "RES", Address = "Örngatan 6", Description ="" });
             modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 2, UnitName = "Ånässkolan", ShortName = "ÅNÄS", Address = "Ånäsvägen 33", Description = "" });
