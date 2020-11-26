@@ -14,11 +14,11 @@ namespace TESTBOK.Models
         {
         }
 
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Unit>  Units { get; set; }
         public DbSet<Resource> Resources { get; set; }
         //public DbSet<Booking> Bookings { get; set; }
-        //public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         //public DbSet<Permission> Permissions { get; set; }
         //public DbSet<PermissionGroup> PermissionGroups { get; set; }
 
@@ -26,9 +26,14 @@ namespace TESTBOK.Models
         {
 
             modelBuilder.Entity<Resource>()
-                .HasOne(u => u.Unit)
-                .WithMany(r => r.Resources)
-                .HasForeignKey(u => u.UnitId);
+                .HasOne(r => r.Unit)
+                .WithMany(u => u.Resources)
+                .HasForeignKey(r => r.UnitId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.UserRole)
+                .WithMany(ur => ur.Users)
+                .HasForeignKey(u => u.UserRoleId);
 
 
             modelBuilder.Entity<Unit>().HasData(new Unit { UnitId = 1, UnitName = "Redbergsskolan", ShortName = "RES", Address = "Örngatan 6", Description ="" });
@@ -55,6 +60,13 @@ namespace TESTBOK.Models
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 12, ResName = "Mötesrum", Info = "Mötesrum på 3e vån i Redbergsskolan", Activity = "Mötesrum", Size = 0, Bookable = true, UnitId = 6 });
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 13, ResName = "VW E-UP", Info = "Lilla bilen", Activity = "Resursbil", Size = 0, Bookable = true, UnitId = 5 });
             modelBuilder.Entity<Resource>().HasData(new Resource { ResId = 14, ResName = "sal 1", Info = "Lektionssal", Activity = "Teorisal", Size = 15, Bookable = true, UnitId = 4 });
+
+            modelBuilder.Entity<UserRole>().HasData(new UserRole { RoleId = 1, RoleName = "Admin" });
+            modelBuilder.Entity<UserRole>().HasData(new UserRole { RoleId = 2, RoleName = "User" });
+
+            modelBuilder.Entity<User>().HasData(new User { UserId = 1, UserName = "Admin", FirstName = "Christian", UserRoleId = 1, Color = "#AC7244" });
+            modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, Color = "#AC7244" });
+
         }
 
     }
