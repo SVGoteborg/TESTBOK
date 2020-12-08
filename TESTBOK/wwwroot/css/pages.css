@@ -26,6 +26,7 @@ body {
     background-color: #FFFFFF;
     font-family: "Calibri", "Arial", sans-serif;
     font-size: 16px;
+    color: #121212;
     line-height: 1 !important;
 }
 
@@ -75,7 +76,8 @@ h3 {
     width: 98px;
     height: 18px;
     border: 1px solid #906A32;
-    background-color: #EEEAC6;
+    /*background-color: #EEEAC6;*/
+    background-color: #3e6422;
     text-indent: 10px;
 }
 
@@ -86,8 +88,10 @@ h3 {
 #box-right {
     width: 878px;
     float: left;
-    border: 1px solid #906A32;
-    background-color: #EEEAC6;
+    /*border: 1px solid #906A32;
+    background-color: #EEEAC6;*/
+    border: 1px solid #3e6422;
+    background-color: #4a7729;
     border-radius: 5px;
 }
 
@@ -95,7 +99,8 @@ h3 {
     padding: 5px;
     /*height: 20px;*/
     border-bottom: 1px solid #906A32;
-    background-color: #DDD79A;
+    /*background-color: #DDD79A;*/
+    background-color: #3e6422;
 }
 
 #box-top-2 {
@@ -103,13 +108,15 @@ h3 {
     padding: 5px;
     min-height: 20px;
     border-bottom: 1px solid #906A32;
-    background-color: #DDD79A;
+    /*background-color: #DDD79A;*/
+    background-color: #3e6422;
 }
 
 #system-title-box {
     float: left;
     border: 1px solid #906A32;
     background-color: #EEEAC6;
+    /*background-color: #3e6422;*/
     color: maroon;
     width: 480px;
     height: 18px;

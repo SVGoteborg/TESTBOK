@@ -7,6 +7,80 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/pages.css" />
+    <style>
+        .menu-header {
+            margin-top: 10px;
+            margin-bottom: 2px;
+            width: 98px;
+            height: 18px;
+            border: 1px solid #906A32;
+            /*background-color: #EEEAC6;*/
+            background-color: #3e6422;
+            text-indent: 10px;
+        }
+        #box-top-1 {
+            padding: 5px;
+            /*height: 20px;*/
+            /*border-bottom: 1px solid #906A32;*/
+            /*background-color: #DDD79A;*/
+            border-bottom: 1px solid #3e6422;
+            background-color: #3e6422;
+        }
+        #system-title-box {
+            float: left;
+            border: 1px solid #906A32;
+            background-color: #EEEAC6;
+            /*background-color: #3e6422;*/
+            color: maroon;
+            width: 480px;
+            height: 18px;
+            padding-left: 5px;
+        }
+        #box-content {
+            margin: 10px;
+            padding: 10px 0;
+            background-color: #FFFFFF;
+            /*border: 1px solid #906A32;*/
+            border: 1px solid #4a7729;
+            min-height: 400px;
+        }
+        #box-right {
+            width: 878px;
+            float: left;
+            /*border: 1px solid #906A32;
+            background-color: #EEEAC6;*/
+            border: 1px solid #3e6422;
+            background-color: #4a7729;
+            border-radius: 5px;
+        }
+        .button {
+            width: 98px;
+            height: 18px;
+            text-indent: 5px;
+            background-color: #fff;
+            border: 1px solid #4a7729;
+            /*border-right-color: #906A32;
+            border-bottom-color: #906A32;*/
+            border-radius: 4px;
+            color: #4a7729;
+        }
+        li a {
+            color: #121212;
+        }
+
+        li a:hover {
+            color: #fff;
+        }
+
+        .button:hover {
+            background-color: #4a7729;
+            border: 1px solid #4a7729;
+            /*border-right-color: #EEEAC6;
+            border-bottom-color: #EEEAC6;*/
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
     @*<header>
@@ -32,17 +106,20 @@
     </header>*@
     <div class="" id="box-page">
         <nav id="box-menu">
-            <div class="menu-header">
+            <div class="menu-logga textcentered">
+                <img src="~/img/sv1pos_75svart_100.png" />
+            </div>
+            <div class="menu-header text-white">
                 Meny
             </div>
             <ul class="menu_left" id="common_menu">
-                <li class="button text-center" id="login"><a class="text-dark" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
+                <li class="button text-center" id="login"><a class="" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="overview"><a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
+                <li class="button text-center" id="overview"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="search"><a class="text-dark" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li class="button text-center" id="search"><a class="" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="help"><a class="nav-item text-dark" asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
             </ul>
         </nav>
         <main id="box-right">
