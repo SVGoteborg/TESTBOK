@@ -20,6 +20,8 @@ namespace TESTBOK.Models
         public bool Bookable { get; set; }
         public int UnitId { get; set; }
         public virtual Unit Unit { get; set; }
+
+        public List<Booking> Bookings { get; set; }
     }
 
     
