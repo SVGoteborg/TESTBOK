@@ -21,6 +21,7 @@ namespace TESTBOK.Controllers
             _logger = logger;
             _context = context;
         }
+        
 
         // GET: OverViewController
         //public ActionResult Index()
@@ -71,7 +72,16 @@ namespace TESTBOK.Controllers
             ViewBag.Dagens = datum;
             ViewBag.Veckodag = day;
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            List<int> weeks = new List<int>();
+            for(int i=0; i < 30; i++)
+            {
+                weeks.Add(cal.GetWeekOfYear(date.AddDays(i * 7), dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            }
+            DateTime date30w = date.AddDays(30 * 7);
+            var week30 = cal.GetWeekOfYear(date30w, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             ViewBag.vecka = week;
+            ViewBag.vecka30 = week30;
+            ViewBag.veckor30 = weeks;
             var viewModel = new UnitResViewModel();
 
             var resource = _context.Resources.FirstOrDefault(r => r.ResId == id);

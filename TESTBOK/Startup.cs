@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TESTBOK.Models;
+using Microsoft.AspNetCore.Http;
+using JavaScriptEngineSwitcher;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using React.AspNet;
+using JavaScriptEngineSwitcher.V8;
 
 namespace TESTBOK
 {
@@ -25,6 +30,11 @@ namespace TESTBOK
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName).AddV8();
+
             services.AddControllersWithViews();
             services.AddDbContext<DBctx>(options =>
        options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
@@ -44,6 +54,12 @@ namespace TESTBOK
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseReact(config =>
+            {
+
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();

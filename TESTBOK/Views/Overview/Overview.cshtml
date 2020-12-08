@@ -11,22 +11,42 @@
         width: 48px;
         height: 18px;
         text-indent: 5px;
-        background-color: #b3cb8e;
-        border: 1px solid #EEEAC6;
-        border-right-color: #906A32;
-        border-bottom-color: #906A32;
+        /*background-color: #b3cb8e;
+        border: 1px solid #EEEAC6;*/
+        background-color: #fff;
+        border: 1px solid #4a7729;
+        /*border-right-color: #906A32;
+        border-bottom-color: #906A32;*/
         border-radius: 4px;
         text-decoration: none;
     }
 
-    .buttonsmall:hover {
-        background-color: #FFFF99;
-        border: 1px solid #906A32;
-        border-right-color: #EEEAC6;
-        border-bottom-color: #EEEAC6;
-        cursor: pointer;
-        text-decoration: none;
+    .change_week {
+        color: #121212;
     }
+
+    .change_week:hover {
+        color: #fff;
+    }
+
+    li a {
+        color: #121212;
+    }
+
+        li a:hover {
+            color: #fff;
+        }
+
+        .buttonsmall:hover {
+            /*background-color: #FFFF99;
+            border: 1px solid #906A32;*/
+            background-color: #4a7729;
+            border: 1px solid #4a7729;
+            /*border-right-color: #EEEAC6;
+        border-bottom-color: #EEEAC6;*/
+            cursor: pointer;
+            text-decoration: none;
+        }
 
     .morning_block {
         position: absolute;
@@ -90,10 +110,10 @@
         </div>
     </div>
     <div class="wrd-nav-box btn-group-toggle">
-        <div class="buttonsmall left bfilter selected_filter_btn" data-filter="ALL">Alla</div>
+        <div class="buttonsmall left bfilter change_week selected_filter_btn" data-filter="ALL">Alla</div>
         @foreach (var unit in Model.UnitsList)
         {
-            <div class="buttonsmall left bfilter" data-filter="@unit.UnitId ">@unit.ShortName</div>
+            <div class="buttonsmall left bfilter change_week" data-filter="@unit.UnitId ">@unit.ShortName</div>
         }
 
         @*<div class="button left bfilter" data-filter="1">RES</div>
@@ -111,7 +131,7 @@
         *@
     </div>
     <div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
         <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
@@ -137,7 +157,7 @@
                 <option>47</option>
             </select>
         </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
     </div>
 
     <div class="list-header-box">
@@ -231,7 +251,7 @@
     </div>
 
     <div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
         <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
@@ -257,7 +277,7 @@
                 <option>47</option>
             </select>
         </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
     </div>
 </div>
 
