@@ -98,6 +98,26 @@
     .wk_selector {
         width: 60px;
     }
+
+    .list-header-box {
+        width: 834px;
+        /*background-color: #EEEAC6;
+        border-bottom: 1px solid #906A32;
+        border-top: 1px solid #906A32;*/
+        background-color: #f2f2f2;
+        border-bottom: 1px solid #4a7729;
+        border-top: 1px solid #4a7729;
+    }
+    .wrd-nav-box {
+        margin-top: 10px;
+        width: 822px;
+        padding: 5px;
+        /*background-color: #EEEAC6;
+        border: 1px solid #906A32;*/
+        background-color: #f2f2f2;
+        border: 1px solid #4a7729;
+        margin-bottom: 10px;
+    }
 </style>
 
 <div id="content-1"></div>
@@ -133,7 +153,7 @@
     <div id="wrd-nav-box_top" class="wrd-nav-box">
         <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
+        <input id="date-select-input_top" type="text" class="left date-select-input hasDatepicker" value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_btn" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
@@ -252,10 +272,10 @@
 
     <div id="wrd-nav-box_top" class="wrd-nav-box">
         <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
-        <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="date-select-input hasDatepicker" value="@ViewBag.Dagens">
-        <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
-        <div id="wk_select_btn" class="left week-num">
+        <label id="date-select-lbl_btm" for="date-select-input_btm" class="left date-select-lbl">Datum: </label>
+        <input id="date-select-input_btm" type="text" class="left date-select-input hasDatepicker" value="@ViewBag.Dagens">
+        <label id="week_num_btm_lbl" for="week-num_btm" class="left week_num_lbl">Vecka: </label>
+        <div id="wk_select_btm" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
                 <option>1</option>
                 <option>2</option>

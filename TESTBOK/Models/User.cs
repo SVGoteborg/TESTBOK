@@ -16,6 +16,8 @@ namespace TESTBOK.Models
         public int? UserPermission { get; set; }
         public int UserRoleId { get; set; }
         public virtual UserRole UserRole { get; set; }
-        public string Color { get; set; }
+        public string SingleColor { get; set; }
+        public string PeriodicColor { get; set; }
+        public List<Booking> Bookings { get; set; }
     }
 }

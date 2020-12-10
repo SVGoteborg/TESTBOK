@@ -28,12 +28,26 @@
         }
         #system-title-box {
             float: left;
-            border: 1px solid #906A32;
-            background-color: #EEEAC6;
-            /*background-color: #3e6422;*/
-            color: maroon;
+            border: 1px solid #3e6422;
+            /*background-color: #EEEAC6;*/
+            /*border: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            /*color: maroon;*/
+            color: #121212;
             width: 480px;
             height: 18px;
+            padding-left: 5px;
+        }
+        #logged-in-as {
+            position: absolute;
+            width: 100px;
+            top: 5px;
+            right: 10px;
+            height: 18px;
+            /*border: 1px solid #906A32;
+            background-color: #EEEAC6;*/
+            border: 1px solid #3e6422;
+            background-color: #f2f2f2;
             padding-left: 5px;
         }
         #box-content {
@@ -83,27 +97,7 @@
     </style>
 </head>
 <body>
-    @*<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TESTBOK</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>*@
+    
     <div class="" id="box-page">
         <nav id="box-menu">
             <div class="menu-logga textcentered">
@@ -120,7 +114,12 @@
                 <li class="button text-center" id="search"><a class="" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
                 <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">Ändra lösen</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga ut</a></li>
             </ul>
+            <div class="menu-header text-white">
+                Admin
+            </div>
         </nav>
         <main id="box-right">
             <div id="box-top-1">

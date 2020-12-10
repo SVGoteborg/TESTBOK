@@ -17,7 +17,7 @@ namespace TESTBOK.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Unit>  Units { get; set; }
         public DbSet<Resource> Resources { get; set; }
-        //public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         //public DbSet<Permission> Permissions { get; set; }
         //public DbSet<PermissionGroup> PermissionGroups { get; set; }
@@ -69,8 +69,8 @@ namespace TESTBOK.Models
             modelBuilder.Entity<UserRole>().HasData(new UserRole { RoleId = 1, RoleName = "Admin" });
             modelBuilder.Entity<UserRole>().HasData(new UserRole { RoleId = 2, RoleName = "User" });
 
-            modelBuilder.Entity<User>().HasData(new User { UserId = 1, UserName = "Admin", FirstName = "Christian", UserRoleId = 1, Color = "#AC7244" });
-            modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, Color = "#AC7244" });
+            modelBuilder.Entity<User>().HasData(new User { UserId = 1, UserName = "Admin", FirstName = "Christian", UserRoleId = 1, SingleColor = "#AC7244", PeriodicColor = "#E2DA38" });
+            modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, SingleColor = "#3ABC12", PeriodicColor = "#172DEF" });
 
         }
 
