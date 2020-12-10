@@ -58,6 +58,44 @@
         .wk_selector {
             width: 60px;
         }
+
+        .change_week {
+            color: #121212;
+        }
+
+            .change_week:hover {
+                color: #fff;
+            }
+
+        div a {
+            color: #121212;
+        }
+
+            div a:hover {
+                color: #fff;
+            }
+
+
+        .list-header-box {
+            width: 834px;
+            /*background-color: #EEEAC6;
+            border-bottom: 1px solid #906A32;
+            border-top: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #4a7729;
+            border-top: 1px solid #4a7729;
+        }
+
+        .wrd-nav-box {
+            margin-top: 10px;
+            width: 822px;
+            padding: 5px;
+            /*background-color: #EEEAC6;
+            border: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            border: 1px solid #4a7729;
+            margin-bottom: 10px;
+        }
     </style>
 
     <h3>Veckoöversikt: @Model.Resource.ResName - @ViewBag.EnhetsAdress</h3>
@@ -69,12 +107,12 @@
     </div>
 
     <div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')"
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')"
              title="Föregående vecka(' . $prevWk . ')">
             &lt;&lt;&lt; -1 Vecka
         </div>
-        <div id="to-overview-btn_top" class="button left to-overview-btn">
-        <a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
+        <div id="to-overview-btn_top" class="button left to-overview-btn change_week">
+        <a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
         <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
         <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
@@ -89,7 +127,7 @@
                 }
             </select>
         </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(' . $nextWk . ')"
+        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
              title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
     </div>
 
@@ -179,16 +217,16 @@
         <div class="data-item">Söndag</div>
     </div>
 
-    <div id="wrd-nav-box_btn" class="wrd-nav-box">
+    <div id="wrd-nav-box_btm" class="wrd-nav-box">
 
-        <div id="prev-wk-btn_btn" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')" title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
-        <div id="to-overview-btn_btn" class="button left to-overview-btn">
-            <a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
+        <div id="prev-wk-btn_btn" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')" title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
+        <div id="to-overview-btn_btn" class="button left to-overview-btn change_week">
+            <a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
         <label id="date-select-lbl_btn" for="date-select-input_btn" class="left date-select-lbl">Datum: </label>
         <input id="date-select-input_btn" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_top" class="left week-num">
-            <select id="wk_selector_btm" class="wk_selector">
+            <select id="wk_selector_btn" class="wk_selector">
 
 
                 for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
@@ -201,7 +239,7 @@
                 }
             </select>
         </div>
-        <div id="next-wk-btn_btn" class="button right next-wk-btn" alt="Nästa vecka(' . $nextWk . ')" title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
+        <div id="next-wk-btn_btn" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')" title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
 
     </div>
 
