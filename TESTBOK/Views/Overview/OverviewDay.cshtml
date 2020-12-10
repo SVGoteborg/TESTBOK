@@ -117,6 +117,22 @@
             margin-bottom: 10px;
         }
 
+        div a {
+            color: #121212;
+        }
+
+            div a:hover {
+                color: #fff;
+            }
+
+        .change_week {
+            color: #121212;
+        }
+
+            .change_week:hover {
+                color: #fff;
+            }
+
         .selected-day {
             background-color: #d6e5bf;
         }
@@ -126,14 +142,14 @@
     <h3>@ViewBag.Dagens - @Model.Resource.ResName - @ViewBag.EnhetsAdress</h3>
     <div id="wrd-nav-box_top" class="wrd-nav-box">
 
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn" alt="Föregående vecka(' . $prevWk . ')"
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')"
              title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
-        <div id="to-overview-btn_top" class="button left to-overview-btn"><a class="text-dark" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
+        <div id="to-overview-btn_top" class="button left to-overview-btn change_week"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
         <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
         <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
         <div id="week-num_top" class="left week-num">@ViewBag.vecka</div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn" alt="Nästa vecka(' . $nextWk . ')"
+        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
              title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
 
     </div>
