@@ -11,10 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TESTBOK.Models;
 using Microsoft.AspNetCore.Http;
-using JavaScriptEngineSwitcher;
-using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
-using React.AspNet;
-using JavaScriptEngineSwitcher.V8;
 
 namespace TESTBOK
 {
@@ -31,9 +27,6 @@ namespace TESTBOK
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddReact();
-
-            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName).AddV8();
 
             services.AddControllersWithViews();
             services.AddDbContext<DBctx>(options =>
@@ -54,11 +47,6 @@ namespace TESTBOK
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-
-            app.UseReact(config =>
-            {
-
-            });
 
             app.UseStaticFiles();
 
