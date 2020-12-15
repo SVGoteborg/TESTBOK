@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,35 @@ namespace TESTBOK.Models
     //    {
     //        ...
     //    }
+
+        public static int LastWeekOfYear(DateTime date)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal = dfi.Calendar;
+            var year = cal.GetYear(date);
+
+            DateTime lastDate = new DateTime(year, 12, 31);
+            var lastWeek = cal.GetWeekOfYear(lastDate, dfi.CalendarWeekRule,
+                                                dfi.FirstDayOfWeek);
+            //List<int> weeksOfYear = new List<int>();
+            //for (int i = 1; i <= lastWeek; i++)
+            //{
+            //    weeksOfYear.Add(cal.GetWeekOfYear(date.AddDays(i * 7), dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            //}
+            return lastWeek;
+        }
+
+        public static List<int> Get30Weeks(DateTime date)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal = dfi.Calendar;
+            List<int> weeks = new List<int>();
+            for (int i = 0; i < 30; i++)
+            {
+                weeks.Add(cal.GetWeekOfYear(date.AddDays(i * 7), dfi.CalendarWeekRule, dfi.FirstDayOfWeek));
+            }
+            return weeks;
+        }
     
     }
 }

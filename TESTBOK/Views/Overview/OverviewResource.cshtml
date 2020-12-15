@@ -118,12 +118,21 @@
         <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_top" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
-                for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
-                    selected = "";
-                    if ($ovWeek == $w) {
-                        selected = "selected"
+                @*for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
+            selected = "";
+            if ($ovWeek == $w) {
+                selected = "selected"
+            }
+            <option selected>' . $w . '</option>
+        }*@
+                @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
+                {
+                    if (vecka == ViewBag.vecka)
+                    {
+                        <option selected>@vecka</option>
+
                     }
-                    <option selected>' . $w . '</option>
+                    <option>@vecka</option>
                 }
             </select>
         </div>
@@ -168,8 +177,8 @@
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
                     <div class="data-item " data-rgid="" data-rid="" value="@wday">
-                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@wday</a>
-</div>
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
                 </div>
             }
         }
