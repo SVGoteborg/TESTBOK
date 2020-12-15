@@ -14,8 +14,11 @@ namespace TESTBOK.ViewModels
         public string ResName { get; set; }
         public Unit Unit { get; set; }
         public IEnumerable<Unit> UnitsList { get; set; }
+        public IEnumerable<Unit> FilteredUnitsList { get; set; }
         public Resource Resource { get; set; }
         public IEnumerable<Resource> ResourcesList { get; set; }
-        
+        public IEnumerable<Resource> FilteredResourceList { get; set; }
+        public IEnumerable<Booking> BookingList { get; set; }
+
     }
 }

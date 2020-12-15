@@ -72,6 +72,63 @@ namespace TESTBOK.Models
             modelBuilder.Entity<User>().HasData(new User { UserId = 1, UserName = "Admin", FirstName = "Christian", UserRoleId = 1, SingleColor = "#AC7244", PeriodicColor = "#E2DA38" });
             modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, SingleColor = "#3ABC12", PeriodicColor = "#172DEF" });
 
+            // Bookings
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 1,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 23, 13, 15, 00),
+                StopTime = new DateTime(2020, 12, 23, 15, 15, 00),
+                Leader = "Arne",
+                Activity = "Lektion",
+                PeriodicId = 0,
+                StartDate = DateTime.Parse("2020-12-23"),
+                NumberOfWeeks = 1
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 2,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 16, 10, 00, 00),
+                StopTime = new DateTime(2020, 12, 16, 12, 00, 00),
+                Leader = "Berit",
+                Activity = "Musik",
+                PeriodicId = 1,
+                StartDate = DateTime.Parse("2020-12-16"),
+                NumberOfWeeks = 3
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 3,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 22, 10, 00, 00),
+                StopTime = new DateTime(2020, 12, 22, 12, 00, 00),
+                Leader = "Berit",
+                Activity = "Musik",
+                PeriodicId = 1,
+                StartDate = DateTime.Parse("2020-12-16"),
+                NumberOfWeeks = 3
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 4,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 29, 10, 00, 00),
+                StopTime = new DateTime(2020, 12, 29, 12, 00, 00),
+                Leader = "Berit",
+                Activity = "Musik",
+                PeriodicId = 1,
+                StartDate = DateTime.Parse("2020-12-16"),
+                NumberOfWeeks = 3
+            });
         }
 
     }
