@@ -7,6 +7,7 @@
         padding: 10px;
         font-size: 80%;
     }
+
     .buttonsmall {
         width: 48px;
         height: 18px;
@@ -25,9 +26,9 @@
         color: #121212;
     }
 
-    .change_week:hover {
-        color: #fff;
-    }
+        .change_week:hover {
+            color: #fff;
+        }
 
     li a {
         color: #121212;
@@ -45,16 +46,16 @@
             color: #fff;
         }
 
-        .buttonsmall:hover {
-            /*background-color: #FFFF99;
+    .buttonsmall:hover {
+        /*background-color: #FFFF99;
             border: 1px solid #906A32;*/
-            background-color: #4a7729;
-            border: 1px solid #4a7729;
-            /*border-right-color: #EEEAC6;
+        background-color: #4a7729;
+        border: 1px solid #4a7729;
+        /*border-right-color: #EEEAC6;
         border-bottom-color: #EEEAC6;*/
-            cursor: pointer;
-            text-decoration: none;
-        }
+        cursor: pointer;
+        text-decoration: none;
+    }
 
     .morning_block {
         position: absolute;
@@ -91,7 +92,8 @@
     }
 
     .selected_filter_btn {
-        background-color: #FFFF99;
+        /*background-color: #FFFF99;*/
+        background-color: #D14F4F;
         border-right: 1px solid #EEEAC6;
         border-bottom: 1px solid #EEEAC6;
         border-left: 1px solid #906A32;
@@ -116,6 +118,7 @@
         border-bottom: 1px solid #4a7729;
         border-top: 1px solid #4a7729;
     }
+
     .wrd-nav-box {
         margin-top: 10px;
         width: 822px;
@@ -127,6 +130,7 @@
         margin-bottom: 10px;
     }
 </style>
+
 
 <div id="content-1"></div>
 <div id="content-2">
@@ -144,33 +148,33 @@
             <div class="buttonsmall left bfilter change_week" data-filter="@unit.UnitId "><a class="" asp-controller="OverView" asp-action="Overview" asp-route-id="@unit.UnitId" style="text-decoration: none">@unit.ShortName</a></div>
         }
 
-        
+
     </div>
     <div id="wrd-nav-box_top" class="wrd-nav-box">
         <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="left date-select-input hasDatepicker" value="@ViewBag.Dagens">
+        <input id="date-select-input_top" type="text" class="left date-select-input " value="@ViewBag.Dagens">
         <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_btn" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
                 @*<option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>45</option>
-                <option selected="selected">46</option>
-                <option>47</option>*@
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>45</option>
+                    <option selected="selected">46</option>
+                    <option>47</option>*@
                 @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
                 {
                     if (vecka == ViewBag.vecka)
@@ -199,31 +203,31 @@
     <div class="hidden"></div>
     <div id="week-overview-list">
 
-    @foreach (var res in Model.FilteredResourceList)
-    {
-        <div class="list-row" data-rid="">
-            <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
-            <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
-                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
-            </div>
-            @foreach (var wday in ViewBag.WeekDays)
-            {
-            <div class="overview-item dotip_building" data-rgid="" data-rid="">
-            @*// 0:00 to 08:00 marked block.*@
-            <div class="morning_block"></div>
-            @*// 21:00 to 24:00 marked block.*@
-            <div class="evening_block"></div>
-                <div class="data-item " data-rgid="" data-rid="" value="@wday">
-                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">@wday</a>
+        @foreach (var res in Model.FilteredResourceList)
+        {
+            <div class="list-row" data-rid="">
+                <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
+                <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
                 </div>
-            </div>
-            }
+                @foreach (var wday in ViewBag.WeekDays)
+                {
+                    <div class="overview-item dotip_building" data-rgid="" data-rid="">
+                        @*// 0:00 to 08:00 marked block.*@
+                        <div class="morning_block"></div>
+                        @*// 21:00 to 24:00 marked block.*@
+                        <div class="evening_block"></div>
+                        <div class="data-item " data-rgid="" data-rid="" value="@wday">
+                            <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">@wday</a>
+                        </div>
+                    </div>
+                }
 
-        </div>
-        @*@await Html.PartialAsync("_WeekDays")*@
+            </div>
+            @*@await Html.PartialAsync("_WeekDays")*@
         }
 
-            @*@*<div class="list-row" data-rid="15">
+        @*@*<div class="list-row" data-rid="15">
                 <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
                 <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
             </div>
@@ -262,7 +266,7 @@
                 <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
                 <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
             </div>*@
-        </div>
+    </div>
     <div class="list-header-box">
         <div class="data-item-short">Grupp</div>
         <div class="data-item-short">Resurs</div>
@@ -278,33 +282,38 @@
     <div id="wrd-nav-box_top" class="wrd-nav-box">
         <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
         <label id="date-select-lbl_btm" for="date-select-input_btm" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_btm" type="text" class="left date-select-input hasDatepicker" value="@ViewBag.Dagens">
+        <input id="date-select-input_btm" type="text" class="left date-select-input" value="@ViewBag.Dagens">
         <label id="week_num_btm_lbl" for="week-num_btm" class="left week_num_lbl">Vecka: </label>
         <div id="wk_select_btm" class="left week-num">
             <select id="wk_selector_top" class="wk_selector">
-                @*Fungerar inte?*@
-                @*@foreach (var week in ViewBag.yearWeeks)
+                @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
                 {
-                    <option>@week</option>
-                }*@
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
-                <option>45</option>
-                <option selected="selected">46</option>
-                <option>47</option>
+                    if (vecka == ViewBag.vecka)
+                    {
+                        <option selected>@vecka</option>
+
+                    }
+                    <option>@vecka</option>
+                }
+
+                @*<option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>45</option>
+                    <option selected="selected">46</option>
+                    <option>47</option>*@
             </select>
         </div>
         <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
@@ -312,3 +321,100 @@
 </div>
 
 <div id="content-3"></div>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $.datepicker.regional['sv'] = {
+            closeText: 'Stäng',
+            prevText: '< Föregående',
+            nextText: 'Nästa >',
+            currentText: 'Nu',
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+            dayNamesShort: ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+            dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+            dayNamesMin: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
+            weekHeader: 'Не',
+            dateFormat: 'yy-mm-dd',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['sv']);
+
+
+        //$.timepicker.regional['sv'] = {
+        //    timeOnlyTitle: 'Välj klockslag',
+        //    timeText: 'Tid',
+        //    hourText: 'Timma',
+        //    minuteText: 'Minut',
+        //    secondText: 'Sekund',
+        //    millisecText: 'Millisekund',
+        //    timezoneText: 'Tidszon',
+        //    currentText: 'Nu',
+        //    closeText: 'Stäng',
+        //    timeFormat: 'HH:mm',
+        //    amNames: ['AM', 'A'],
+        //    pmNames: ['PM', 'P'],
+        //    isRTL: false
+        //};
+        //$.timepicker.setDefaults($.timepicker.regional['sv']);
+
+        //$.datepicker.setDefaults({
+        //    showOn: "both",
+        //    buttonImageOnly: true,
+        //    buttonImage: "calendar.gif",
+        //    buttonText: "Calendar"
+        //});
+
+        //$(".hasDatepicker").datepicker({
+        //    showWeek: true
+        //});
+
+        //$("#date-select-input_top").datepicker();
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_top").datepicker({
+        //        showOtherMonths: true,
+        //        selectOtherMonths: true,
+        //        showButtonPanel: true,
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        showWeek: true,
+        //        firstDay: 1
+        //    });
+        //});
+
+        $(document).ready(function () {
+            $(".date-select-input").datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                showButtonPanel: true,
+                changeMonth: true,
+                changeYear: true,
+                showWeek: true,
+                firstDay: 1,
+                gotoCurrent: true
+            });
+        });
+        var currentDate = $(".date-select-input").datepicker("getDate");
+        $(".date-select-input").val(currentDate);
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_btm").datepicker(
+        //        {
+        //            showOtherMonths: true,
+        //            selectOtherMonths: true,
+        //            showButtonPanel: true,
+        //            changeMonth: true,
+        //            changeYear: true,
+        //            showWeek: true,
+        //            firstDay: 1
+        //        });
+        //});
+
+    </script>
+}
