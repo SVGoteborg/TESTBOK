@@ -78,6 +78,9 @@ namespace TESTBOK.Controllers
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
 
+            var bookings = _context.Bookings.ToList();
+            viewModel.BookingList = bookings;
+
             return View(viewModel);
         }
 
@@ -158,6 +161,9 @@ namespace TESTBOK.Controllers
             ViewBag.EnhetsAdress = unit.Address;
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
+
+            var bookings = _context.Bookings.ToList();
+            viewModel.BookingList = bookings;
 
             return View(viewModel);
         }

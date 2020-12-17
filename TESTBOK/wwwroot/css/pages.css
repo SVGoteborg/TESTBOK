@@ -318,7 +318,8 @@ h3 {
 }
 
     .list-row:hover {
-        background-color: #ffff99;
+        /*background-color: #ffff99;*/
+        background-color: #E6B10E;
     }
 
 .dblock {
