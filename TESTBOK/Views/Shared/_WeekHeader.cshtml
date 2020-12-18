@@ -1,0 +1,17 @@
+﻿<div class="list-header-box">
+    <div class="data-item-short">Grupp</div>
+    <div class="data-item-short">Vecka</div>
+    <div class="data-item">Måndag</div>
+    <div class="data-item">Tisdag</div>
+    <div class="data-item">Onsdag</div>
+    <div class="data-item">Torsdag</div>
+    <div class="data-item">Fredag</div>
+    <div class="data-item">Lördag</div>
+    <div class="data-item">Söndag</div>
+</div>
+<div class="hidden">
+    @*/* @var $rg CResourceGroup */*@
+    foreach ($rgList as $rg) {
+    <div id="rg' . $rg->getResourceGroupID() . '">$rg->getResourceGroupName();</div>
+    }
+</div>

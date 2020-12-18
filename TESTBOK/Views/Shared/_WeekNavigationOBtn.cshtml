@@ -1,0 +1,28 @@
+﻿<div id="wrd-nav-box_top" class="wrd-nav-box">
+    <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')"
+         title="Föregående vecka(' . $prevWk . ')">
+        &lt;&lt;&lt; -1 Vecka
+    </div>
+    <div id="to-overview-btn_top" class="button left to-overview-btn change_week">
+        <a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a>
+    </div>
+    <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
+    <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
+    <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
+    <div id="wk_select_top" class="left week-num">
+        <select id="wk_selector_top" class="wk_selector">
+            
+            @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
+                        {
+                            if (vecka == ViewBag.vecka)
+                            {
+                                <option selected>@vecka</option>
+
+                            }
+                            <option>@vecka</option>
+                        }
+                    </select>
+                </div>
+                <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
+                     title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
+            </div>
