@@ -460,7 +460,7 @@ div.small {
     background: #f2f2f2;
     border: 1px solid #3e6422;
     overflow: hidden;
-    width: 360px;
+    /*width: 360px;*/
 }
 
 .bk_info_left {
