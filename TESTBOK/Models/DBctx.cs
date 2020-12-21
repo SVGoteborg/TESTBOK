@@ -129,6 +129,34 @@ namespace TESTBOK.Models
                 StartDate = DateTime.Parse("2020-12-16"),
                 NumberOfWeeks = 3
             });
+             modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 5,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-05"),
+                StartTime = new DateTime(2020, 12, 29, 10, 00, 00),
+                StopTime = new DateTime(2020, 12, 29, 12, 00, 00),
+                Leader = "Berit",
+                Activity = "Musik",
+                PeriodicId = 1,
+                StartDate = DateTime.Parse("2020-12-06"),
+                NumberOfWeeks = 3
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 6,
+                UserId = 1,
+                ResourceId = 4,
+                BookingDate = DateTime.Parse("2020-12-01"),
+                StartTime = new DateTime(2020, 12, 29, 10, 00, 00),
+                StopTime = new DateTime(2020, 12, 29, 12, 00, 00),
+                Leader = "Berit",
+                Activity = "Musik",
+                PeriodicId = 1,
+                StartDate = DateTime.Parse("2020-12-02"),
+                NumberOfWeeks = 3
+            });
         }
 
     }

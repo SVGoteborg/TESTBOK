@@ -31,20 +31,38 @@ namespace TESTBOK.Controllers
 
         // GET: OverViewController
         [HttpGet]
-        public ActionResult Overview(int? id)
+        public ActionResult Overview(int? id, string? datePicker)
         {
+            var datum = string.Empty;
+            var date = DateTime.Now;
+            if ( datePicker!= null)
+            {
+                datum = datePicker;
+                date = Convert.ToDateTime(datum);
+            }
+            
+            else
+            {
+                datum = date.ToString("yyyy-MM-dd");
+            }
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             Calendar cal = dfi.Calendar;
-            var date = DateTime.Now;
-            var datum = date.ToString("yyyy-MM-dd");
             var day = date.ToString("dddd");
             ViewBag.Dagens = datum;
             ViewBag.Veckodag = day;
             ViewBag.yearWeeks = Dates.LastWeekOfYear(date);
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             ViewBag.vecka = week;
+            List<Booking> bookings = _context.Bookings.ToList();
+
             var viewModel = new UnitResViewModel();
-            
+
+            /* Filtrerar ut bokningar baserat på nuvarande vecka */
+            var filteredBookings = from booking in bookings
+                                   where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
+                                   select booking;
+            viewModel.BookingList = filteredBookings;
+
             var resource = _context.Resources.OrderBy(u => u.UnitId).ToList();
             IEnumerable<Resource> resources = resource;
             viewModel.ResourcesList = resources;
@@ -77,9 +95,6 @@ namespace TESTBOK.Controllers
 
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
-
-            var bookings = _context.Bookings.ToList();
-            viewModel.BookingList = bookings;
 
             return View(viewModel);
         }
@@ -162,12 +177,15 @@ namespace TESTBOK.Controllers
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
 
-            var bookings = _context.Bookings.ToList();
-            viewModel.BookingList = bookings;
-
             return View(viewModel);
         }
 
+        [HttpPost]
+        public IActionResult GetDateFromDatePicker([FromBody]string datePicker)
+        {
+            return RedirectToAction(nameof(Overview), new {datePicker });
+            //return Json(datePicker);
+        }
         // GET: OverViewController/Details/5
         public ActionResult Details(int id)
         {
