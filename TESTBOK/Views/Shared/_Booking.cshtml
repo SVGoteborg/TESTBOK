@@ -1,0 +1,273 @@
+﻿@model UnitResViewModel
+
+<style>
+    .formstyle {
+        margin: 10px;
+        padding: 10px;
+        /*background: #DDD79A;*/
+        /*border: 1px solid #906A32;*/
+        background: #f2f2f2;
+        border: 1px solid #3e6422;
+        overflow: hidden;
+        width: 380px;
+    }
+
+    .bk_info_right {
+        margin: 0 0 5px 5px;
+        width: 150px;
+        height: 18px;
+        /*border: 1px solid #906A32;
+        background-color: #EEEAC6;*/
+        border: 1px solid #CB4F53;
+        background-color: #E6B10E;
+        text-indent: 10px;
+        float: left;
+    }
+
+    .w40 {
+        width: 40px;
+    }
+
+    div.small {
+        padding-left: 2px;
+        font-size: 10px;
+    }
+
+    #button-box {
+        width: 100%;
+        padding: 10px;
+    }
+
+    #cancel_btn {
+        margin-right: 20px;
+    }
+
+    #booking_edit_submit_btn {
+        margin-right: 20px;
+    }
+
+    select.right-input {
+        text-indent: 0px;
+        float: left;
+    }
+</style>
+<div id="edit_messages"> </div>
+
+<form name="booking_edit_form" id="booking_edit_form" class="formstyle">
+
+    <!-- if ( $cmd == "new" ){ -->
+    <h2>Skapa ny bokning </h2>
+    <!-- } else {
+        if ( $scope == "single") { -->
+    <h2>Redigera enskild bokning </h2>
+    <!-- } else { -->
+    @*<h2>Redigera alla bokningar i perioden</h2>*@
+    <!-- }
+    } -->
+
+    <div class="bk_info_left">Bokare och ID: </div>
+    <div class="bk_info_right">{$bookingUser->getUserName()}</div>
+    <div class="bk_info_right w40 small">$bkID</div>
+
+    <div class="bk_info_left">Grupp: </div>
+    <div class="bk_info_right">@Model.Unit.UnitName</div>
+    <div class="bk_info_right w40">@Model.Unit.ShortName</div>
+
+    <div class="bk_info_left">Namn på resurs: </div>
+    <div class="bk_info_right">@Model.Resource.ResName</div>
+
+    <div class="bk_info_left">Typ av resurs: </div>
+    <div class="bk_info_right">@Model.Resource.Info</div>
+
+    <div class="bk_info_left">Datum: </div>
+    <div class="bk_info_right">$date</div>
+
+    <label for="date_edit" class="left-label">Nytt datum?</label>
+    <input class="right-input" type="text" name="date_edit" id="date_edit" value="$newDate" />
+
+    <label for="activity" class="left-label">Aktivitet:</label>
+    <input class="right-input" type="text" name="activity" id="activity" value="$activity" />
+
+    <label for="leaderid" class="left-label">Ansvarig:</label>
+    <input class="right-input" type="text" name="leaderid" id="leaderid" value="$leaderID" />
+
+    <label for="sHrs" class="left-label">Starttid -timma:</label>
+    <select class="right-select w60" name="sHrs" id="sHrs">
+
+        @*for ($h = 0 ; $h < 24 ; $h++) {
+            $selected = "";
+            $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
+            if($hrs == $startHrs){
+            $selected = 'selected="selected" ';
+            }
+            <option '.$selected.'>'.$hrs.'</option>
+            }*@
+
+
+    </select>
+
+    <select class="right-select w60" name="sMin" id="sMin">
+
+
+        @*for ($m = 0 ; $m < 4 ; $m++) {
+            $selected = "";
+            $min = date("i", mktime(0, ($m*15), 0, 0, 0, 0));
+            if($min == $sMin){
+            $selected = 'selected="yes" ';
+            }
+            <option '.$selected.'>'.$min.'</option>
+            }*@
+
+
+    </select>
+    <label for="sMin" class="right-label">min:</label>
+
+    <label for="eHrs" class="left-label">Sluttid -timma:</label>
+    <select class="right-input w60" name="eHrs" id="eHrs">
+
+
+        @*for ($h = 0 ; $h < 24 ; $h++) {
+            $selected = "";
+            $hrs = date("H", mktime($h, 0, 0, 0, 0, 0));
+            if($hrs == $endHrs){
+            $selected = 'selected="selected" ';
+            }
+            <option '.$selected.'>'.$hrs.'</option>
+            }*@
+
+    </select>
+
+    <select class="right-input w60" name="eMin" id="eMin">
+
+
+        @*for ($m = 0 ; $m < 4 ; $m++) {
+            $selected = "";
+            $min = date("i", mktime(0, ($m*15), 0, 0, 0, 0));
+            if($min == $eMin){
+            $selected = 'selected="yes" ';
+            }
+            <option '.$selected.'>'.$min.'</option>
+            }*@
+    </select>
+
+    <!-- $dts = $rebo->date_model->makeTS($date);
+    $weekdayNumber = date('w', $dts);
+
+    $bookedWeekdays[1]="";
+    $bookedWeekdays[2]="";
+    $bookedWeekdays[3]="";
+    $bookedWeekdays[4]="";
+    $bookedWeekdays[5]="";
+    $bookedWeekdays[6]="";
+    $bookedWeekdays[7]="";
+
+    $bookedWeekdays[$weekdayNumber]='checked'; -->
+
+
+    <label for="eMin" class="right-label">min:</label>
+
+    <!-- /*
+        <label for="weekdays" class="left-label">Veckodagar:</label>
+        <div class="left">
+
+            <input type="checkbox" name="weekdays[]" value="1" '.$bookedWeekdays[1].'>M</input>
+            <input type="checkbox" name="weekdays[]" value="2" '.$bookedWeekdays[2].'>T</input>
+            <input type="checkbox" name="weekdays[]" value="3" '.$bookedWeekdays[3].'>O</input>
+            <input type="checkbox" name="weekdays[]" value="4" '.$bookedWeekdays[4].'>T</input>
+            <input type="checkbox" name="weekdays[]" value="5" '.$bookedWeekdays[5].'>F</input>
+            <input type="checkbox" name="weekdays[]" value="6" '.$bookedWeekdays[6].'>L</input>
+            <input type="checkbox" name="weekdays[]" value="7" '.$bookedWeekdays[7].'>S</input>
+
+        </div>
+    */ -->
+
+    <label for="numweeks" class="left-label">Antal Veckor:</label>
+    <select class="right-input w60" name="numweeks" id="numweeks">
+
+
+        $year = date('Y',strtotime($date));
+        // number of weeks in the current year.
+        $weeks = $rebo->date_model->getNumWeeksInYear($year);
+        for ($w = 1 ; $w < ($weeks + 1) ; $w++) {
+        $selected = "";
+        if($w == $numWeeks){
+        $selected = 'selected="yes" ';
+        }
+        <option selected>'.$w.'</option>
+        }
+    </select>
+
+
+
+    <div id="button-box">
+
+        <div id="booking_edit_submit_btn" class="clearLeft button left">
+            <img src="~/led16/accept.png" alt="$btnOkText" /> Boka
+        </div>
+        <!-- $btnOkText -->
+        <div id="cancel_btn" class="button left ">
+            <img src="~/led16/cancel.png" alt="Avbryt" /> Avbryt
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $("#date_edit").datepicker({
+        });
+
+        $('#cancel_btn').unbind('click');
+
+        if ($sourcePage == 'search') {
+
+            $('#cancel_btn').click(function () {
+                $('#edit_dlg').dialog('close');
+            });
+
+        } else {
+
+            $('#cancel_btn').click(function () {
+                $.post('part/show/resource_details.php',
+                    {
+                        bkID: '$bkID',
+                        rID: '$rID',
+                        date: '$date'
+                    },
+                    function (data) {
+                        $('#room-day-right-box').html(data);
+                    });
+                return false;
+            });
+
+        }
+
+
+        $('#booking_edit_submit_btn').unbind('click');
+        $('#booking_edit_submit_btn').click(function () {
+            $.post('part/adm/booking/bk_process.php',
+                {
+                    cmd: '$cmd',
+                    bkID: '$bkID',
+                    rID: '$rID',
+                    date: '$date',
+                    newDate: $("#date_edit").val(),
+                    sHrs: $("#sHrs").val(),
+                    sMin: $("#sMin").val(),
+                    eHrs: $("#eHrs").val(),
+                    eMin: $("#eMin").val(),
+                    activity: $("#activity").val(),
+                    leaderID: $("#leaderid").val(),
+                    numWeeks: $("#numweeks").val(),
+                    scope: '$scope'
+                },
+                function (data) {
+                    $('#edit_dlg').dialog('close');
+                    $('#edit_messages').html(data);
+                    clearContent('#content-3');
+                });
+            return false;
+        });
+
+    </script>
+}

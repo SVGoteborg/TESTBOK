@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TESTBOK</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
     <link rel="stylesheet" href="~/css/pages.css" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     @*<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">*@
@@ -17,7 +20,7 @@
             height: 18px;
             border: 1px solid #906A32;
             /*background-color: #EEEAC6;*/
-            background-color: #3e6422;
+            background-color: #6BAA24;
             text-indent: 10px;
         }
 
@@ -26,8 +29,8 @@
             /*height: 20px;*/
             /*border-bottom: 1px solid #906A32;*/
             /*background-color: #DDD79A;*/
-            border-bottom: 1px solid #3e6422;
-            background-color: #3e6422;
+            border-bottom: 1px solid #CB4F53;
+            background-color: #CB4F53;
         }
 
         #system-title-box {
@@ -51,7 +54,7 @@
             height: 18px;
             /*border: 1px solid #906A32;
             background-color: #EEEAC6;*/
-            border: 1px solid #3e6422;
+            border: 1px solid #6BAA24;
             background-color: #f2f2f2;
             padding-left: 5px;
         }
@@ -61,7 +64,7 @@
             padding: 10px 0;
             background-color: #FFFFFF;
             /*border: 1px solid #906A32;*/
-            border: 1px solid #4a7729;
+            border: 1px solid #6BAA24;
             min-height: 400px;
         }
 
@@ -71,7 +74,7 @@
             /*border: 1px solid #906A32;
             background-color: #EEEAC6;*/
             border: 1px solid #3e6422;
-            background-color: #4a7729;
+            background-color: #6BAA24;
             border-radius: 5px;
         }
 
@@ -96,12 +99,15 @@
             }
 
         .button:hover {
-            background-color: #4a7729;
-            border: 1px solid #4a7729;
+            background-color: #6BAA24;
+            border: 1px solid #6BAA24;
             /*border-right-color: #EEEAC6;
             border-bottom-color: #EEEAC6;*/
             cursor: pointer;
             text-decoration: none;
+        }
+        ul {
+            padding-left: 0;
         }
     </style>
 </head>
@@ -116,15 +122,15 @@
                 Meny
             </div>
             <ul class="menu_left" id="common_menu">
-                <li class="button text-center" id="login"><a class="" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
+                <li class="button text-center" id="login"><a class="" asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Logga in&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="overview"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
+                <li class="button text-center" id="overview"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Översikt&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="search"><a class="" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li class="button text-center" id="search"><a class="" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">Ändra lösen</a></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga ut</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Information" style="text-decoration: none">&nbsp;&nbsp;Information&nbsp;&nbsp;</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;Ändra lösen&nbsp;&nbsp;</a></li>
+                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Logga ut&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
             </ul>
             <div class="menu-header text-white">
                 Admin
@@ -150,19 +156,11 @@
         </main>
 
     </div>
-    @*<div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>*@
 
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2020 - TESTBOK - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="~/lib/jquery/jquery.ui.datepicker-sv.js"></script>
     <script src="~/js/main.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

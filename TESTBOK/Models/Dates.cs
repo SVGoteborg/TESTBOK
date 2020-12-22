@@ -9,6 +9,12 @@ namespace TESTBOK.Models
 {
     public static class Dates
     {
+        private static DateTime tempDate;
+
+        public static DateTime Today { get; set; }
+        public static DateTime TempDate { get => tempDate; set => tempDate = value; }
+
+
         public static IEnumerable EachDay(this DateTime start, DateTime end)
         {
             // Remove time info from start date (we only care about day). 
@@ -31,12 +37,12 @@ namespace TESTBOK.Models
             }
         }
 
-    //    DateTime start = DateTime.Now;
-    //    DateTime end = start.AddDays(20);
-    //    foreach (var day in start.EachDay(end))
-    //    {
-    //        ...
-    //    }
+        //    DateTime start = DateTime.Now;
+        //    DateTime end = start.AddDays(20);
+        //    foreach (var day in start.EachDay(end))
+        //    {
+        //        ...
+        //    }
 
         public static int LastWeekOfYear(DateTime date)
         {
@@ -66,6 +72,19 @@ namespace TESTBOK.Models
             }
             return weeks;
         }
-    
+
+
+
+
+        // Få fram datum för måndag i veckan
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
+        }
+
+        //DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+
+
     }
 }
