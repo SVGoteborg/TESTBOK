@@ -70,7 +70,8 @@ namespace TESTBOK.Models
             modelBuilder.Entity<UserRole>().HasData(new UserRole { RoleId = 2, RoleName = "User" });
 
             modelBuilder.Entity<User>().HasData(new User { UserId = 1, UserName = "Admin", FirstName = "Christian", UserRoleId = 1, SingleColor = "#AC7244", PeriodicColor = "#E2DA38" });
-            modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, SingleColor = "#3ABC12", PeriodicColor = "#172DEF" });
+            modelBuilder.Entity<User>().HasData(new User { UserId = 2, UserName = "User", FirstName = "Normal", UserRoleId = 2, SingleColor = "#960981", PeriodicColor = "#ED2B0E" });
+            modelBuilder.Entity<User>().HasData(new User { UserId = 3, UserName = "Booker", FirstName = "Booker", UserRoleId = 2, SingleColor = "#3ABC12", PeriodicColor = "#172DEF" });
 
             // Bookings
             modelBuilder.Entity<Booking>().HasData(new Booking
@@ -156,6 +157,34 @@ namespace TESTBOK.Models
                 PeriodicId = 1,
                 StartDate = DateTime.Parse("2020-12-02"),
                 NumberOfWeeks = 3
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 7,
+                UserId = 3,
+                ResourceId = 3,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 23, 10, 15, 00),
+                StopTime = new DateTime(2020, 12, 23, 12, 15, 00),
+                Leader = "Berit",
+                Activity = "Lektion",
+                PeriodicId = 0,
+                StartDate = DateTime.Parse("2020-12-23"),
+                NumberOfWeeks = 1
+            });
+            modelBuilder.Entity<Booking>().HasData(new Booking
+            {
+                BookingId = 8,
+                UserId = 3,
+                ResourceId = 3,
+                BookingDate = DateTime.Parse("2020-12-15"),
+                StartTime = new DateTime(2020, 12, 23, 13, 15, 00),
+                StopTime = new DateTime(2020, 12, 23, 15, 15, 00),
+                Leader = "Berit",
+                Activity = "Workshop",
+                PeriodicId = 0,
+                StartDate = DateTime.Parse("2020-12-23"),
+                NumberOfWeeks = 1
             });
         }
 

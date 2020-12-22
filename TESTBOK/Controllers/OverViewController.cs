@@ -126,6 +126,14 @@ namespace TESTBOK.Controllers
             ViewBag.Dagens = datum;
             ViewBag.Veckodag = day;
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            DateTime dt210 = dt.AddDays(30 * 7);
+            List<string> datesForward = new List<string>();
+            foreach (DateTime loopDay in dt.EachDay(dt210))
+            {
+                datesForward.Add(loopDay.ToString("yyyy-MM-dd"));
+                    }
+            ViewBag.ForwardDates = datesForward;
             //List<int> weeks = new List<int>();
             //for(int i=0; i < 30; i++)
             //{
