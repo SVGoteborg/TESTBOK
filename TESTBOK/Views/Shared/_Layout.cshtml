@@ -81,7 +81,8 @@
         .button {
             width: 98px;
             height: 18px;
-            text-indent: 5px;
+            /*text-indent: 5px;*/
+            text-indent: 0;
             background-color: #fff;
             border: 1px solid #4a7729;
             /*border-right-color: #906A32;
@@ -106,9 +107,9 @@
             cursor: pointer;
             text-decoration: none;
         }
-        ul {
+        /*ul {
             padding-left: 0;
-        }
+        }*/
     </style>
 </head>
 <body>
@@ -121,16 +122,16 @@
             <div class="menu-header text-white">
                 Meny
             </div>
-            <ul class="menu_left" id="common_menu">
-                <li class="button text-center" id="login"><a class="" asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Logga in&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+            <ul class="menu_left nav flex-column" id="common_menu">
+                <li class="button nav-item text-center" id="login"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="overview"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Översikt&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li class="button nav-item text-center" id="overview"><a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="search"><a class="" asp-controller="Home" asp-action="Search" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sök&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li class="button nav-item text-center" id="search"><a class="nav-link p-0" asp-controller="Home" asp-action="Search" style="text-decoration: none">Sök</a></li>
                 <li class="button_spacer"></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Information" style="text-decoration: none">&nbsp;&nbsp;Information&nbsp;&nbsp;</a></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;Ändra lösen&nbsp;&nbsp;</a></li>
-                <li class="button text-center" id="help"><a class="nav-item " asp-controller="Home" asp-action="Index" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;Logga ut&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Ändra lösen</a></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga ut</a></li>
             </ul>
             <div class="menu-header text-white">
                 Admin

@@ -167,7 +167,7 @@
                     <div class="morning_block"></div>
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
-                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                    <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" value="@wday">
                         <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </div>
                 </div>
@@ -216,6 +216,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript">
+            // For Datepicker
             $.datepicker.regional['sv'] = {
                 closeText: 'Stäng',
                 prevText: '< Föregående',
@@ -257,8 +258,12 @@
 
 
         </script>
+        <script type="text/javascript">
+            //Show bookings
 
+        </script>
         @*<script type="text/javascript">
+            // Code from old site
 
                     makeOverview();
 
