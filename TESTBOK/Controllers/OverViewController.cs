@@ -53,6 +53,16 @@ namespace TESTBOK.Controllers
             ViewBag.yearWeeks = Dates.LastWeekOfYear(date);
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             ViewBag.vecka = week;
+
+            DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            DateTime dt7 = dt.AddDays(7);
+            List<string> datesForward = new List<string>();
+            foreach (DateTime loopDay in dt.EachDay(dt7))
+            {
+                datesForward.Add(loopDay.ToString("yyyy-MM-dd"));
+            }
+            ViewBag.ForwardDates = datesForward;
+
             List<Booking> bookings = _context.Bookings.ToList();
 
             var viewModel = new UnitResViewModel();
@@ -126,6 +136,7 @@ namespace TESTBOK.Controllers
             ViewBag.Dagens = datum;
             ViewBag.Veckodag = day;
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            // Get date for monday in this week
             DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
             DateTime dt210 = dt.AddDays(30 * 7);
             List<string> datesForward = new List<string>();
@@ -192,6 +203,13 @@ namespace TESTBOK.Controllers
         public IActionResult GetDateFromDatePicker([FromBody]string datePicker)
         {
             return RedirectToAction(nameof(Overview), new {datePicker });
+            //return Json(datePicker);
+        }
+
+        [HttpPost]
+        public IActionResult GetIdFromFilter([FromBody] string Id)
+        {
+            return RedirectToAction(nameof(Overview), new { Id });
             //return Json(datePicker);
         }
         // GET: OverViewController/Details/5

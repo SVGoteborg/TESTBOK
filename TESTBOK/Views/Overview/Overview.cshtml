@@ -38,6 +38,10 @@
             color: #fff;
         }
 
+        li a:active {
+            background-color: #D14F4F;
+        }
+
     div a {
         color: #121212;
     }
@@ -130,6 +134,7 @@
         margin-bottom: 10px;
     }
 </style>
+@{int next = 0;}
 
 <div id="content-1"></div>
 <div id="content-2">
@@ -140,11 +145,13 @@
             <img src="~/led16/printer.png" title="Skriv ut" />
         </div>
     </div>
-    <div class="wrd-nav-box btn-group-toggle">
-        <div class="buttonsmall left bfilter change_week selected_filter_btn" data-filter="ALL"><a class="" asp-controller="OverView" asp-action="Overview" asp-route-id="0" style="text-decoration: none">Alla</a></div>
+    <div id="unitFilter" class="wrd-nav-box btn-group-toggle">
+        <div id="0" class="buttonsmall left bfilter change_week nav-item" data-filter="ALL">
+            <a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" asp-route-id="0" style="text-decoration: none">Alla</a>
+        </div>
         @foreach (var unit in Model.UnitsList)
         {
-            <div class="buttonsmall left bfilter change_week" data-filter="@unit.UnitId "><a class="" asp-controller="OverView" asp-action="Overview" asp-route-id="@unit.UnitId" style="text-decoration: none">@unit.ShortName</a></div>
+            <div id="@unit.UnitId" class="buttonsmall left bfilter change_week nav-item" data-filter="@unit.UnitId "><a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" asp-route-id="@unit.UnitId" style="text-decoration: none">@unit.ShortName</a></div>
         }
 
 
@@ -176,7 +183,7 @@
     @await Html.PartialAsync("_WeekNavigation")
 
     @await Html.PartialAsync("_WeekHeader")
-    
+
     <div id="week-overview-list">
         @foreach (var res in Model.FilteredResourceList)
         {
@@ -188,19 +195,18 @@
 
             @foreach (var wday in ViewBag.WeekDays)
             {
-                    <div class="overview-item dotip_building" data-rgid="" data-rid="">
-
-                        @*// 0:00 to 08:00 marked block.*@
-                        <div class="morning_block"></div>
-
-                        @*// 21:00 to 24:00 marked block.*@
-                        <div class="evening_block"></div>
-                        <div class="data-item " data-rgid="" data-rid="" value="@wday">
-                            <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">@wday</a>
-                        </div>
+                <div class="overview-item dotip_building" data-rgid="" data-rid="">
+                    @*// 0:00 to 08:00 marked block.*@
+                    <div class="morning_block"></div>
+                    @*// 21:00 to 24:00 marked block.*@
+                    <div class="evening_block"></div>
+                    <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </div>
+                    @{next++;}
+                </div>
             }
-
+            @{next = 0;}
         </div>
             @*@await Html.PartialAsync("_WeekDays")*@
         }
@@ -281,6 +287,45 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
+    $(document).ready(function () {
+        $('#0').addClass('selected_filter_btn');
+    });
+
+    //function addSelectedClass() {
+    //    var element = document.getElementById("0");
+    //    element.classList.add("selected_filter_btn");
+    //}
+
+    jQuery("#unitFilter .buttonsmall").click(function () {
+        jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
+        jQuery(this).toggleClass('selected_filter_btn');
+        console.log('Button clicked');
+    });
+
+        @*$('.selected_filter_btn').change(function () {
+
+            let currentId = $(this).val();
+
+            $('.selected_filter_btn').datepicker('setId', new Id(currentId));
+
+
+            var url = "@Url.Action("GetIdFromFilter", "OverView")";
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(currentId),
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+            $(".selected_filter_btn").val(currentId);
+        }); // end change*@
+
+    </script>
+    <script>
         //$(".date-select-input").val(currentDate);
         $.datepicker.regional['sv'] = {
             closeText: 'Stäng',
@@ -302,7 +347,7 @@
         $.datepicker.setDefaults($.datepicker.regional['sv']);
 
         $(document).ready(function () {
-            
+
             $(".date-select-input").datepicker(
                 {
                     dateFormat: 'yy-mm-dd',
@@ -314,15 +359,15 @@
                     showWeek: true,
                     firstDay: 1,
                     gotoCurrent: true
-            });         
+            });
         });
         $('.date-select-input').change(function () {
-            
+
             let currentDate = $(this).val();
 
             $('.date-select-input').datepicker('setDate', new Date(currentDate));
-            
-            
+
+
             var url = "@Url.Action("GetDateFromDatePicker", "OverView")";
 
             fetch(url, {
@@ -337,8 +382,8 @@
                 .catch(error => console.error('Error:', error));
             $(".date-select-input").val(currentDate);
         }); // end change
-        
-       
+
+
         //$.timepicker.regional['sv'] = {
         //    timeOnlyTitle: 'Välj klockslag',
         //    timeText: 'Tid',
