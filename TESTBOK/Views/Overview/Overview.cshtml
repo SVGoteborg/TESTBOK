@@ -195,12 +195,12 @@
 
             @foreach (var wday in ViewBag.WeekDays)
             {
-                <div class="overview-item dotip_building" data-rgid="" data-rid="">
+                <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" class="overview-item dotip_building" data-rgid="" data-rid="">
                     @*// 0:00 to 08:00 marked block.*@
                     <div class="morning_block"></div>
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
-                    <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" value="@wday">
                         <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </div>
                     @{next++;}

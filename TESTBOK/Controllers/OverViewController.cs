@@ -54,7 +54,7 @@ namespace TESTBOK.Controllers
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             ViewBag.vecka = week;
 
-            DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            DateTime dt = date.StartOfWeek(DayOfWeek.Monday);
             DateTime dt7 = dt.AddDays(7);
             List<string> datesForward = new List<string>();
             foreach (DateTime loopDay in dt.EachDay(dt7))
