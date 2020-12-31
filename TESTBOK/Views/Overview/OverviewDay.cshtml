@@ -1,0 +1,541 @@
+﻿@model UnitResViewModel
+
+<div id="content-1"></div>
+<div id="content-2">
+
+    <style>
+        #room-day-left-box {
+            position: relative;
+            float: left;
+            width: 402px;
+            height: 562px;
+            padding: 0;
+            margin: 0;
+            border: 1px solid #906A32;
+            overflow-y: scroll;
+        }
+
+        #room-day-right-box {
+            position: relative;
+            float: left;
+            width: 402px;
+            height: 562px;
+            padding: 0;
+            margin: 0 0 0 10px;
+            border: 1px solid #906A32;
+            overflow: hidden;
+        }
+
+        #booking_form {
+            margin: 5px;
+        }
+
+        .list-header-box {
+            width: 834px;
+            /*background-color: #EEEAC6;
+            border-bottom: 1px solid #906A32;
+            border-top: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #4a7729;
+            border-top: 1px solid #4a7729;
+        }
+
+        .wrd-nav-box {
+            margin-top: 10px;
+            width: 822px;
+            padding: 5px;
+            /*background-color: #EEEAC6;
+            border: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            border: 1px solid #4a7729;
+            margin-bottom: 10px;
+        }
+
+        .hour {
+            height: 40px;
+            cursor: pointer;
+        }
+
+            .hour:hover, .selectedhour:hover {
+                background-color: #FFFF99;
+            }
+
+        .selectedhour {
+            color: maroon;
+        }
+
+
+        .selectedsdblock {
+            color: maroon;
+        }
+
+        .sdblock:hover {
+            cursor: pointer;
+            background-color: #FFFF99;
+        }
+
+        .sdblock div {
+            margin-left: 10px;
+            width: 150px;
+        }
+
+            .sdblock div.clearLeft {
+                margin-left: 50px;
+                opacity: 1;
+                z-index: 4;
+            }
+
+        .hour h4 {
+            display: block;
+            width: 40px;
+            z-index: 5;
+        }
+
+        .room_info_left {
+            margin: 5px 5px 0px 5px;
+            width: 150px;
+            height: 20px;
+            text-align: right;
+            float: left;
+            clear: left;
+        }
+
+        .room_info_right {
+            margin: 5px 5px 0px 5px;
+            width: 150px;
+            height: 18px;
+            border: 1px solid #906A32;
+            background-color: #EEEAC6;
+            text-indent: 10px;
+            float: left;
+        }
+
+        .morning_block {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 32px;
+            height: 100%;
+            background-color: #EEEEEE;
+            padding: 0;
+            margin: 0;
+            opacity: 0.6;
+        }
+
+        .evening_block {
+            position: absolute;
+            top: 0;
+            width: 12px;
+            height: 100%;
+            left: 84px;
+            background-color: #EEEEEE;
+            padding: 0;
+            margin: 0;
+            opacity: 0.6;
+        }
+
+        #week-overview-list {
+            margin-bottom: 10px;
+        }
+
+        div a {
+            color: #121212;
+        }
+
+            div a:hover {
+                color: #fff;
+            }
+
+        .change_week {
+            color: #121212;
+        }
+
+            .change_week:hover {
+                color: #fff;
+            }
+
+        .selected-day {
+            background-color: #d6e5bf;
+        }
+    </style>
+
+
+    <h3>@ViewBag.Dagens - @Model.Resource.ResName - @ViewBag.EnhetsAdress</h3>
+    <div id="wrd-nav-box_top" class="wrd-nav-box">
+
+        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')"
+             title="Föregående vecka(' . $prevWk . ')">&lt;&lt;&lt; -1 Vecka</div>
+        <div id="to-overview-btn_top" class="button left to-overview-btn change_week"><a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></div>
+        <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
+        <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
+        <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
+        <div id="week-num_top" class="left week-num">@ViewBag.vecka</div>
+        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
+             title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
+
+    </div>
+
+    @await Html.PartialAsync("_WeekHeader")
+
+
+    <div id="week-overview-list">
+
+        <!--$bookings = $rebo->bookings->getResourceBookings($rID, $mondayDate, 7);
+        $dateArray = array();
+        for ($day = 0; $day < 7; $day++) {
+        $dt = date('Y-m-d', strtotime($mondayDate . ' + ' . $day . ' days'));
+        $dateArray[$dt] = null;
+        }
+        $bookings = array_merge($dateArray, $bookings);-->
+        <!-- // create id for tooltip containers. -->
+        <!--$tipCounter = 0;-->
+        <div class="list-row " data-rID=" . $rID . ">
+
+            @*<div class="overview-item-short dotip_building"
+                data-ttip="#rg' . $resource->getResourceGroupID() . '">' . $resourceGroup->getResourceGroupShortName() . '</div>*@
+            @*<div class="overview-item-short room_id_btn" data-bID="'. $resource->getResourceGroupID() . '" data-rID="' . $rID . '">
+                    . $resource->getResourceName() . '
+                </div>
+                for ($day = 0; $day < 7; $day++) {
+                $dt = date('Y-m-d', strtotime($mondayDate . ' + ' . $day . ' days'));
+                $id = $rID . ' ' . $dt;
+                $tipClass = "notip";
+                $isSelected = "";
+
+                $dbk = new CDayBlock($resource, $dt, $bookings[$dt]);
+
+                if ($dbk->hasBookings()) {
+                $tipClass = "dotip";
+                }
+                if ($date == $dt) {
+                $isSelected = "selected-day";
+                }*@
+
+            <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
+                <span>@Model.Unit.ShortName</span>
+            </div>
+            <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@Model.Resource.ResName</a>
+            </div>
+            @foreach (var wday in ViewBag.WeekDays)
+            {
+                <div class="overview-item dotip_building" data-rgid="" data-rid="">
+                    @*// 0:00 to 08:00 marked block.*@
+                    <div class="morning_block"></div>
+                    @*// 21:00 to 24:00 marked block.*@
+                    <div class="evening_block"></div>
+                    <div class="data-item " data-rgid="" data-rid="" value="@wday">
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@wday</a>
+                    </div>
+                </div>
+            }
+
+            <!--<div class="overview-item ' . $tipClass . ' ' . $isSelected . '" id="' . $id . '"
+                 title="' . $resourceGroup->getResourceGroupShortName() . ' | ' . $resource->getResourceName() . ' | ' . $dt . '"
+                 data-ttip="#' . $tipCounter . '" data-ref="part/show/view_resource_day.php"
+                 data-target="#content-2" data-rID="' . $rID . '" data-rgID="' . $resource->getResourceGroupID() . '"
+                 data-date="' . $dt . '">
+                <!-- // 0:00 to 08:00 marked block. -->
+            <!--<div class="morning_block"></div>-->
+            <!-- // 21:00 to 24:00 marked block. -->
+            <!--<div class="evening_block"></div>-->
+            @*if ($dbk->hasBookings()) {
+                echo $dbk->getBlockString();
+                }*@
+            @*</div>-->*@
+            @*if ($dbk->hasBookings()) {
+                echo '<div id="' . $tipCounter . '" class="hidden">
+                    ';
+                    echo $dbk->getTooltipString();
+                    echo '
+                </div>';
+                }
+                $tipCounter++;
+                }*@
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    @*// vänstertabell för timmar*@
+    <div id="room-day-left-box">
+        <div id="room-day-view">
+
+            <!--// print day-->
+            <!-- //$bookings = $lb->getDayResourceBookings($rgID, $rID, $date); -->
+            <!--$dayBookings = $bookings[$date];
+            $isOddRow = true;
+            $rowText = "even-row";-->
+            <!-- // print hour blocks -->
+            <!--for ($h = 0; $h < 24; $h++) {
+            $hStart = date('H', strtotime($h . ':00'));
+            $hStop = date('H', strtotime(($h + 1) . ':00'));
+            $tstart = $h * 40;
+            $tstop = ($h + 1) * 40;-->
+            @*<div class="hour ' . $rowText . '" data-sHrs="' . $hStart . '" data-eHrs="' . $hStop . '"
+                     data-tstart="' . $tstart . '" data-tstop="' . $tstop . '">
+                    <h4>' . $hStart . ':00</h4>
+                </div>*@
+            <!--if ($isOddRow) {
+            $isOddRow = false;
+            $rowText = "odd-row";
+            } else {
+            $isOddRow = true;
+            $rowText = "even-row";
+            }
+            }-->
+            <!-- // Print the booked blocks. -->
+            <!--if ($dayBookings != null) {
+            foreach ($dayBookings as $booking) {
+            $strt = $booking->getStartQslice() * 10;
+            $end = $booking->getEndQslice() * 10;
+            $bkColor = $booking->getColor();-->
+            <!--<div class="sdblock" style="background-color: $bkColor "
+             data-bkID="' . $booking->getBookingID() . '" data-strStart="' . $booking->getStartTime() . '"
+             data-strStop="' . $booking->getEndTime() . '" data-tstart="' . ($booking->getStartQslice() * 10) . '"
+             data-tstop="' . ($booking->getEndQslice() * 10) . '">
+            <div class="clearLeft left">Tid: ' . $booking->getStartTime() . ' - ' . $booking->getEndTime() . '</div>
+            <div class="left">Aktivitet: ' . $booking->getActivity() . '</div>';
+            <div class="clearLeft left">Slutdatum: ' . $booking->getEndDate() . '</div>
+            <!-- //            echo '<div class="left">Bokare: '.$booking->getUsername().'</div> -->
+            <!--<div class="left">Ansvarig: ' . $booking->getLeaderID() . '</div>
+            </div>-->
+            @*}
+                }*@
+
+            @for (var i = 0; i < 24; i++)
+            {
+                string tim = i.ToString();
+                if (i < 10)
+                    tim = "0" + tim;
+                if (i % 2 == 0)
+                {
+                    <div class="hour even-row" data-sHrs="' . $hStart . '" data-eHrs="' . $hStop . '"
+                         data-tstart="' . $tstart . '" data-tstop="' . $tstop . '" name="@i" value="@i">
+                        <h4>@tim:00</h4>
+                    </div>
+                }
+                else
+                {
+                    <div class="hour odd-row" data-sHrs="' . $hStart . '" data-eHrs="' . $hStop . '"
+                         data-tstart="' . $tstart . '" data-tstop="' . $tstop . '" name="@i" value="@i">
+                        <h4>@tim:00</h4>
+                    </div>
+                }
+            }
+
+        </div>
+    </div> <!-- room-day-left-box -->
+    <!-- booking-and-info-right-box -->
+    <div id="room-day-right-box">
+        @*@await Html.PartialAsync("_ResourceInfo")*@
+        @await Html.PartialAsync("_Booking")
+    </div>
+
+    @section Scripts{
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script>
+            //document.getElementsByClassName('to-focus')[0].focus()
+            $('#room-day-left-box').scrollTop(310);
+        </script>
+        <script type="text/javascript">
+            $(document).trigger('hideCluetip');
+
+            makeDayOverview();
+            makeOverview();
+
+            $('#room-day-left-box').scrollTop(310);
+            $('.hour').removeClass('selectedhour');
+            $('.sdblock').removeClass('selectedsdblock');
+
+            $('div.dotip_building').cluetip({
+                local: true,
+                hideLocal: true,
+                dropShadow: false,
+                titleAttribute: 'title',
+                showTitle: false,
+                cluetipClass: 'jtip',
+                width: '150',
+                attribute: 'data-ttip',
+                topOffset: '10',
+                leftOffset: '20',
+                positionBy: 'mouse',
+                tracking: true
+            });
+
+            $('.room_id_btn').unbind('click');
+            $('.room_id_btn').click(function () {
+                var t = $(this);
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/resource_overview.php',
+                    {
+                        cmd: 'overview!',
+                        rID: t.attr('data-rID'),
+                        date: '$date'
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+                return false;
+            });
+
+
+            // Click hour to create new booking.
+
+            $('.hour').click(function () {
+                $('.hour').removeClass('selectedhour');
+                $('.sdblock').removeClass('selectedsdblock');
+                var t = $(this);
+                t.addClass('selectedhour');
+
+                if ($rebo -> currentUser -> canEditResource($rID)) {
+
+                    $.post('part/adm/booking/bk_edit.php',
+                        {
+                            bkID: t.attr('data-bkID'),
+                            cmd: 'new',
+                            date: '$date',
+                            rID: '$rID',
+                            sHrs: t.attr('data-sHrs'),
+                            eHrs: t.attr('data-eHrs'),
+                            page: 'view_resource_day'
+                        },
+                        function (data) {
+                            $('#room-day-right-box').html(data);
+                        });
+
+                    return false;
+                });
+
+            // edit existing booking.
+            $('.sdblock').click(function () {
+                $('.hour').removeClass('selectedhour');
+                $('.sdblock').removeClass('selectedsdblock');
+                var t = $(this);
+                t.addClass('selectedsdblock');
+                $.post('part/adm/booking/bk_details.php',
+                    {
+                        bkID: t.attr('data-bkID'),
+                        cmd: 'edit',
+                        page: 'view_resource_day'
+                    },
+                    function (data) {
+                        $('#room-day-right-box').html(data);
+                    });
+                return false;
+            });
+
+            $('div.dotip').cluetip({
+                local: true,
+                hideLocal: true,
+                dropShadow: false,
+                titleAttribute: 'title',
+                cluetipClass: 'jtip',
+                width: 'auto',
+                attribute: 'data-ttip',
+                topOffset: '10',
+                leftOffset: '20',
+                positionBy: 'mouse',
+                tracking: true
+            });
+            $.post('part/show/resource_details.php',
+                {
+                    rID: '$rID',
+                    date: '$date'
+                },
+                function (data) {
+                    $('#room-day-right-box').html(data);
+                });
+
+            $(".date-select-input").datepicker({
+            });
+
+            $('.prev-wk-btn').unbind('click');
+            $('.prev-wk-btn').click(function () {
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/view_resource_day.php',
+                    {
+                        rID: '$rID',
+                        date: '$prevWk'
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+            });
+
+            $('.next-wk-btn').unbind('click');
+            $('.next-wk-btn').click(function () {
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/view_resource_day.php',
+                    {
+                        rID: '$rID',
+                        date: '$nextWk'
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+            });
+
+            $('.date-select-input').unbind('change');
+            $('.date-select-input').change(function () {
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/view_resource_day.php',
+                    {
+                        rID: '$rID',
+                        date: $(this).val()
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+            });
+
+
+            $('.to-overview-btn').unbind('click');
+            $('.to-overview-btn').click(function () {
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/overview.php',
+                    {
+                        rID: '$rID',
+                        date: '$date'
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+            });
+
+            $('.overview').unbind('click');
+            $('.overview').click(function () {
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/overview.php',
+                    {
+                        rID: '$rID',
+                        date: '$date'
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+            });
+
+            $('.overview-item').unbind('click');
+            $('.overview-item').click(function () {
+                var t = $(this);
+                $('#content-2').html('<h2>Laddar...</h2>');
+                $.post('part/show/view_resource_day.php',
+                    {
+                        rID: '$rID',
+                        date: t.attr('data-date')
+
+                    },
+                    function (data) {
+                        $('#content-2').html(data);
+                    });
+                return false;
+            });
+
+
+
+        </script>
+    } 
+
+    </div>
+<div id="content-3"></div>

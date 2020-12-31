@@ -1,0 +1,16 @@
+﻿@model UnitResViewModel
+
+
+@foreach (var wday in ViewBag.WeekDays)
+{
+    <div class="overview-item dotip_building" data-rgid="" data-rid="">
+        @*// 0:00 to 08:00 marked block.*@
+        <div class="morning_block"></div>
+        @*// 21:00 to 24:00 marked block.*@
+        <div class="evening_block"></div>
+        <div class="data-item " data-rgid="" data-rid="" value="@wday">
+            <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@wday</a>
+</div>
+    </div>
+}
+

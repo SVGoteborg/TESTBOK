@@ -1,0 +1,444 @@
+﻿@model UnitResViewModel
+
+<style>
+    .vlog {
+        border: 1px solid #906A32;
+        background-color: #EEEAC6;
+        padding: 10px;
+        font-size: 80%;
+    }
+
+    .buttonsmall {
+        width: 48px;
+        height: 18px;
+        text-indent: 5px;
+        /*background-color: #b3cb8e;
+        border: 1px solid #EEEAC6;*/
+        background-color: #fff;
+        border: 1px solid #6BAA24;
+        /*border-right-color: #906A32;
+        border-bottom-color: #906A32;*/
+        border-radius: 4px;
+        text-decoration: none;
+    }
+
+    .change_week {
+        color: #121212;
+    }
+
+        .change_week:hover {
+            color: #fff;
+        }
+
+    li a {
+        color: #121212;
+    }
+
+        li a:hover {
+            color: #fff;
+        }
+
+        li a:active {
+            background-color: #D14F4F;
+        }
+
+    div a {
+        color: #121212;
+    }
+
+        div a:hover {
+            color: #fff;
+        }
+
+    .buttonsmall:hover {
+        /*background-color: #FFFF99;
+            border: 1px solid #906A32;*/
+        background-color: #6BAA24;
+        border: 1px solid #6BAA24;
+        /*border-right-color: #EEEAC6;
+        border-bottom-color: #EEEAC6;*/
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .morning_block {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 100%;
+        background-color: #EEEEEE;
+        padding: 0;
+        margin: 0;
+        opacity: 0.6;
+    }
+
+    .evening_block {
+        position: absolute;
+        top: 0;
+        width: 12px;
+        height: 100%;
+        left: 84px;
+        background-color: #EEEEEE;
+        padding: 0;
+        margin: 0;
+        opacity: 0.6;
+    }
+
+    .selected-day {
+        background-color: #d6e5bf;
+    }
+
+    .bfilter {
+        margin-right: 5px;
+        width: 48px;
+        margin-bottom: 5px;
+    }
+
+    .selected_filter_btn {
+        /*background-color: #FFFF99;*/
+        background-color: #D14F4F;
+        border-right: 1px solid #EEEAC6;
+        border-bottom: 1px solid #EEEAC6;
+        border-left: 1px solid #906A32;
+        border-top: 1px solid #906A32;
+        cursor: pointer;
+    }
+
+    .wkNumSpan {
+        left: 20px;
+    }
+
+    .wk_selector {
+        width: 60px;
+    }
+
+    .list-header-box {
+        width: 834px;
+        /*background-color: #EEEAC6;
+        border-bottom: 1px solid #906A32;
+        border-top: 1px solid #906A32;*/
+        background-color: #f2f2f2;
+        border-bottom: 1px solid #4a7729;
+        border-top: 1px solid #4a7729;
+    }
+
+    .wrd-nav-box {
+        margin-top: 10px;
+        width: 822px;
+        padding: 5px;
+        /*background-color: #EEEAC6;
+        border: 1px solid #906A32;*/
+        background-color: #f2f2f2;
+        border: 1px solid #4a7729;
+        margin-bottom: 10px;
+    }
+</style>
+@{int next = 0;}
+
+<div id="content-1"></div>
+<div id="content-2">
+    <h3>Översikt resurser i alla grupper vecka @ViewBag.vecka</h3>
+
+    <div class="icon-box">
+        <div class="icon-btn print_btn" id="print-button" data-cmd="print">
+            <img src="~/led16/printer.png" title="Skriv ut" />
+        </div>
+    </div>
+    <div id="unitFilter" class="wrd-nav-box btn-group-toggle">
+        <div id="0" class="buttonsmall left bfilter change_week nav-item" data-filter="ALL">
+            <a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" asp-route-id="0" style="text-decoration: none">Alla</a>
+        </div>
+        @foreach (var unit in Model.UnitsList)
+        {
+            <div id="@unit.UnitId" class="buttonsmall left bfilter change_week nav-item" data-filter="@unit.UnitId "><a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" asp-route-id="@unit.UnitId" style="text-decoration: none">@unit.ShortName</a></div>
+        }
+
+
+    </div>
+    @*<div id="wrd-nav-box_top" class="wrd-nav-box">
+            <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
+            <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
+            <input id="date-select-input_top" type="text" class="left date-select-input " value="@ViewBag.Dagens">
+            <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
+            <div id="wk_select_btn" class="left week-num">
+                <select id="wk_selector_top" class="wk_selector">
+
+                    @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
+                    {
+                        if (vecka == ViewBag.vecka)
+                        {
+                            <option selected>@vecka</option>
+
+                        }
+                        else
+                        {
+                            <option>@vecka</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
+        </div>*@
+    @await Html.PartialAsync("_WeekNavigation")
+
+    @await Html.PartialAsync("_WeekHeader")
+
+    <div id="week-overview-list">
+        @foreach (var res in Model.FilteredResourceList)
+        {
+        <div class="list-row" data-rid="">
+            <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
+            <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
+            </div>
+
+            @foreach (var wday in ViewBag.WeekDays)
+            {
+                <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" class="overview-item dotip_building" data-rgid="" data-rid="">
+                    @*// 0:00 to 08:00 marked block.*@
+                    <div class="morning_block"></div>
+                    @*// 21:00 to 24:00 marked block.*@
+                    <div class="evening_block"></div>
+                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                    @{next++;}
+                </div>
+            }
+            @{next = 0;}
+        </div>
+            @*@await Html.PartialAsync("_WeekDays")*@
+        }
+
+        @*@*<div class="list-row" data-rid="15">
+                <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
+                <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
+            </div>
+            <div class="list-row" data-rid="30">
+                <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
+                <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
+            </div>
+            <div class="list-row" data-rid="17">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
+            </div>
+            <div class="list-row" data-rid="18">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
+            </div>
+
+            <div class="list-row" data-rid="27">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
+                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
+                </div>
+            </div>
+            <div class="list-row" data-rid="2">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
+            </div>
+            <div class="list-row" data-rid="4">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
+            </div>
+            <div class="list-row" data-rid="16">
+                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
+                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
+            </div>
+            <div class="list-row" data-rid="19">
+                <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
+                <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
+            </div>*@
+    </div>
+
+    @await Html.PartialAsync("_WeekHeader")
+
+    @await Html.PartialAsync("_WeekNavigation")
+    @*<div id="wrd-nav-box_top" class="wrd-nav-box">
+            <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
+            <label id="date-select-lbl_btm" for="date-select-input_btm" class="left date-select-lbl">Datum: </label>
+            <input id="date-select-input_btm" type="text" class="left date-select-input" value="@ViewBag.Dagens">
+            <label id="week_num_btm_lbl" for="week-num_btm" class="left week_num_lbl">Vecka: </label>
+            <div id="wk_select_btm" class="left week-num">
+                <select id="wk_selector_top" class="wk_selector">
+                    @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
+                    {
+                        if (vecka == ViewBag.vecka)
+                        {
+                            <option selected>@vecka</option>
+                        }
+                        else
+                        {
+                            <option>@vecka</option>
+                        }
+                    }
+
+                </select>
+            </div>
+            <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
+        </div>*@
+</div>
+
+<div id="content-3"></div>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        $('#0').addClass('selected_filter_btn');
+    });
+
+    //function addSelectedClass() {
+    //    var element = document.getElementById("0");
+    //    element.classList.add("selected_filter_btn");
+    //}
+
+    jQuery("#unitFilter .buttonsmall").click(function () {
+        jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
+        jQuery(this).toggleClass('selected_filter_btn');
+        console.log('Button clicked');
+    });
+
+        @*$('.selected_filter_btn').change(function () {
+
+            let currentId = $(this).val();
+
+            $('.selected_filter_btn').datepicker('setId', new Id(currentId));
+
+
+            var url = "@Url.Action("GetIdFromFilter", "OverView")";
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(currentId),
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+            $(".selected_filter_btn").val(currentId);
+        }); // end change*@
+
+    </script>
+    <script>
+        //$(".date-select-input").val(currentDate);
+        $.datepicker.regional['sv'] = {
+            closeText: 'Stäng',
+            prevText: '< Föregående',
+            nextText: 'Nästa >',
+            currentText: 'Nu',
+            monthNames: ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+            dayNamesShort: ['Sön', 'Mån', 'Tis', 'Ons', 'Tor', 'Fre', 'Lör'],
+            dayNames: ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+            dayNamesMin: ['Sö', 'Må', 'Ti', 'On', 'To', 'Fr', 'Lö'],
+            weekHeader: 'Не',
+            dateFormat: 'yyyy-mm-dd',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['sv']);
+
+        $(document).ready(function () {
+
+            $(".date-select-input").datepicker(
+                {
+                    dateFormat: 'yy-mm-dd',
+                    showOtherMonths: true,
+                    selectOtherMonths: true,
+                    showButtonPanel: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    showWeek: true,
+                    firstDay: 1,
+                    gotoCurrent: true
+            });
+        });
+        $('.date-select-input').change(function () {
+
+            let currentDate = $(this).val();
+
+            $('.date-select-input').datepicker('setDate', new Date(currentDate));
+
+
+            var url = "@Url.Action("GetDateFromDatePicker", "OverView")";
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(currentDate),
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+            $(".date-select-input").val(currentDate);
+        }); // end change
+
+
+        //$.timepicker.regional['sv'] = {
+        //    timeOnlyTitle: 'Välj klockslag',
+        //    timeText: 'Tid',
+        //    hourText: 'Timma',
+        //    minuteText: 'Minut',
+        //    secondText: 'Sekund',
+        //    millisecText: 'Millisekund',
+        //    timezoneText: 'Tidszon',
+        //    currentText: 'Nu',
+        //    closeText: 'Stäng',
+        //    timeFormat: 'HH:mm',
+        //    amNames: ['AM', 'A'],
+        //    pmNames: ['PM', 'P'],
+        //    isRTL: false
+        //};
+        //$.timepicker.setDefaults($.timepicker.regional['sv']);
+
+        //$.datepicker.setDefaults({
+        //    showOn: "both",
+        //    buttonImageOnly: true,
+        //    buttonImage: "calendar.gif",
+        //    buttonText: "Calendar"
+        //});
+
+        //$(".hasDatepicker").datepicker({
+        //    showWeek: true
+        //});
+
+        //$("#date-select-input_top").datepicker();
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_top").datepicker({
+        //        showOtherMonths: true,
+        //        selectOtherMonths: true,
+        //        showButtonPanel: true,
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        showWeek: true,
+        //        firstDay: 1
+        //    });
+        //});
+
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_btm").datepicker(
+        //        {
+        //            showOtherMonths: true,
+        //            selectOtherMonths: true,
+        //            showButtonPanel: true,
+        //            changeMonth: true,
+        //            changeYear: true,
+        //            showWeek: true,
+        //            firstDay: 1
+        //        });
+        //});
+
+    </script>
+}

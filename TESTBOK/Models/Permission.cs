@@ -8,9 +8,9 @@ namespace TESTBOK.Models
     public class Permission
     {
 
-        public int UpId { get; set; }
+        public int PermId { get; set; }
 
         // Userpermission No - X, Read - R, Write - W
-        public string PermissionName { get; set; }
+        public char PermissionName { get; set; }
     }
 }

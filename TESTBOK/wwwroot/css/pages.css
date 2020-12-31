@@ -26,6 +26,7 @@ body {
     background-color: #FFFFFF;
     font-family: "Calibri", "Arial", sans-serif;
     font-size: 16px;
+    color: #121212;
     line-height: 1 !important;
 }
 
@@ -39,9 +40,12 @@ li {
 }
 
 h2 {
-    border: 1px solid #906A32;
+    /*border: 1px solid #906A32;
     background-color: #EEEAC6;
-    color: maroon;
+    color: maroon;*/
+    border: 1px solid #3e6422;
+    background-color: #fff;
+    color: #121212;
     text-indent: 10px;
     margin-bottom: 20px;
 }
@@ -75,7 +79,8 @@ h3 {
     width: 98px;
     height: 18px;
     border: 1px solid #906A32;
-    background-color: #EEEAC6;
+    /*background-color: #EEEAC6;*/
+    background-color: #3e6422;
     text-indent: 10px;
 }
 
@@ -86,8 +91,10 @@ h3 {
 #box-right {
     width: 878px;
     float: left;
-    border: 1px solid #906A32;
-    background-color: #EEEAC6;
+    /*border: 1px solid #906A32;
+    background-color: #EEEAC6;*/
+    border: 1px solid #3e6422;
+    background-color: #4a7729;
     border-radius: 5px;
 }
 
@@ -95,7 +102,8 @@ h3 {
     padding: 5px;
     /*height: 20px;*/
     border-bottom: 1px solid #906A32;
-    background-color: #DDD79A;
+    /*background-color: #DDD79A;*/
+    background-color: #3e6422;
 }
 
 #box-top-2 {
@@ -103,13 +111,15 @@ h3 {
     padding: 5px;
     min-height: 20px;
     border-bottom: 1px solid #906A32;
-    background-color: #DDD79A;
+    /*background-color: #DDD79A;*/
+    background-color: #3e6422;
 }
 
 #system-title-box {
     float: left;
     border: 1px solid #906A32;
     background-color: #EEEAC6;
+    /*background-color: #3e6422;*/
     color: maroon;
     width: 480px;
     height: 18px;
@@ -152,6 +162,7 @@ h3 {
     border-right-color: #906A32;
     border-bottom-color: #906A32;
     border-radius: 4px;
+    text-decoration: none;
 }
 
 .button:hover {
@@ -160,6 +171,7 @@ h3 {
     border-right-color: #EEEAC6;
     border-bottom-color: #EEEAC6;
     cursor: pointer;
+    text-decoration: none;
 }
 
 #box-content {
@@ -306,7 +318,8 @@ h3 {
 }
 
     .list-row:hover {
-        background-color: #ffff99;
+        /*background-color: #ffff99;*/
+        background-color: #E6B10E;
     }
 
 .dblock {
@@ -442,10 +455,12 @@ div.small {
 .formstyle {
     margin: 10px;
     padding: 10px;
-    background: #DDD79A;
-    border: 1px solid #906A32;
+    /*background: #DDD79A;*/
+    /*border: 1px solid #906A32;*/
+    background: #f2f2f2;
+    border: 1px solid #3e6422;
     overflow: hidden;
-    width: 360px;
+    /*width: 360px;*/
 }
 
 .bk_info_left {
@@ -583,3 +598,4 @@ div.small {
 .b1 {
     border: 1px solid red;
 }
+
