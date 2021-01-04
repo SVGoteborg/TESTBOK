@@ -292,15 +292,17 @@
         });
 
 
-        let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
+            let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
+            console.log(bookingsFromViewModel);
             $(".overview-item").on('click', function () {
                 let el = $(this);
                 let IdAndDate = $(this).attr("id");
                 const [ resourceId, currentDate ] = IdAndDate.split("_");
-
+                
                 let selectedBooking = getBooking(parseInt(resourceId), currentDate);
                 let startTime = selectedBooking.startTime.slice(11, 16);
                 let stopTime = selectedBooking.stopTime.slice(11, 16);
+                
                 $(el).popover({ content: `${startTime} -> ${stopTime}` });
         });
 
