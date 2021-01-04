@@ -1,0 +1,24 @@
+﻿<div id="wrd-nav-box_top" class="wrd-nav-box">
+    <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
+    <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
+    <input id="date-select-input_top" type="text" class="left date-select-input " value="@ViewBag.Dagens">
+    <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
+    <div id="wk_select_btn" class="left week-num">
+        <select id="wk_selector_top" class="wk_selector">
+
+            @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
+            {
+                if (vecka == ViewBag.vecka)
+                {
+                    <option selected>@vecka</option>
+
+                }
+                else
+                {
+                    <option>@vecka</option>
+                }
+            }
+        </select>
+    </div>
+    <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
+</div>

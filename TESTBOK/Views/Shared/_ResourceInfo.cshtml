@@ -1,0 +1,51 @@
+﻿@model UnitResViewModel
+
+<style>
+    .formstyle {
+        margin: 10px;
+        padding: 10px;
+        /*background: #DDD79A;*/
+        /*border: 1px solid #906A32;*/
+        background: #f2f2f2;
+        border: 1px solid #3e6422;
+        overflow: hidden;
+        width: 360px;
+    }
+    .bk_info_right {
+        margin: 0 0 5px 5px;
+        width: 150px;
+        height: 18px;
+        /*border: 1px solid #906A32;
+        background-color: #EEEAC6;*/
+        border: 1px solid #3e6422;
+        background: #f2f2f2;
+        text-indent: 10px;
+        float: left;
+    }
+    .text_info_block {
+        margin: 5px 9px;
+        width: 300px;
+        /*border: 1px solid #906A32;
+        background-color: #EEEAC6;*/
+        border: 1px solid #3e6422;
+        background: #f2f2f2;
+        padding: 10px;
+    }
+</style>
+    <div class="formstyle">
+
+        <h2>Resursinformation</h2>
+
+        <div class="bk_info_left">Resursgrupp: </div>
+        <div class="bk_info_right">@ViewBag.EnhetsAdress</div>
+        <div class="bk_info_right w40">@Model.Unit.ShortName</div>
+
+        <div class="bk_info_left">Namn på resurs: </div>
+        <div class="bk_info_right">@Model.Resource.ResName</div>
+
+        <div class="bk_info_left">Typ av resurs: </div>
+        <div class="bk_info_right">@Model.Resource.Info</div>
+
+        <div class="clearLeft text_info_block left"> {$resource->getResourceDescription()} </div>
+
+    </div>

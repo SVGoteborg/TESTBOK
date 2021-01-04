@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TESTBOK</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+    <link rel="stylesheet" href="~/css/pages.css" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    @*<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">*@
+    <style>
+        .menu-header {
+            margin-top: 10px;
+            margin-bottom: 2px;
+            width: 98px;
+            height: 18px;
+            border: 1px solid #906A32;
+            /*background-color: #EEEAC6;*/
+            background-color: #6BAA24;
+            text-indent: 10px;
+        }
+
+        #box-top-1 {
+            padding: 5px;
+            /*height: 20px;*/
+            /*border-bottom: 1px solid #906A32;*/
+            /*background-color: #DDD79A;*/
+            border-bottom: 1px solid #CB4F53;
+            background-color: #CB4F53;
+        }
+
+        #system-title-box {
+            float: left;
+            border: 1px solid #3e6422;
+            /*background-color: #EEEAC6;*/
+            /*border: 1px solid #906A32;*/
+            background-color: #f2f2f2;
+            /*color: maroon;*/
+            color: #121212;
+            width: 480px;
+            height: 18px;
+            padding-left: 5px;
+        }
+
+        #logged-in-as {
+            position: absolute;
+            width: 100px;
+            top: 5px;
+            right: 10px;
+            height: 18px;
+            /*border: 1px solid #906A32;
+            background-color: #EEEAC6;*/
+            border: 1px solid #6BAA24;
+            background-color: #f2f2f2;
+            padding-left: 5px;
+        }
+
+        #box-content {
+            margin: 10px;
+            padding: 10px 0;
+            background-color: #FFFFFF;
+            /*border: 1px solid #906A32;*/
+            border: 1px solid #6BAA24;
+            min-height: 400px;
+        }
+
+        #box-right {
+            width: 878px;
+            float: left;
+            /*border: 1px solid #906A32;
+            background-color: #EEEAC6;*/
+            border: 1px solid #3e6422;
+            background-color: #6BAA24;
+            border-radius: 5px;
+        }
+
+        .button {
+            width: 98px;
+            height: 18px;
+            /*text-indent: 5px;*/
+            text-indent: 0;
+            background-color: #fff;
+            border: 1px solid #4a7729;
+            /*border-right-color: #906A32;
+            border-bottom-color: #906A32;*/
+            border-radius: 4px;
+            color: #4a7729;
+        }
+
+        li a {
+            color: #121212;
+        }
+
+            li a:hover {
+                color: #fff;
+            }
+
+        .button:hover {
+            background-color: #6BAA24;
+            border: 1px solid #6BAA24;
+            /*border-right-color: #EEEAC6;
+            border-bottom-color: #EEEAC6;*/
+            cursor: pointer;
+            text-decoration: none;
+        }
+        /*ul {
+            padding-left: 0;
+        }*/
+    </style>
+</head>
+<body>
+
+    <div class="" id="box-page">
+        <nav id="box-menu">
+            <div class="menu-logga textcentered">
+                <img src="~/img/sv1pos_75svart_100.png" />
+            </div>
+            <div class="menu-header text-white">
+                Meny
+            </div>
+            <ul class="menu_left nav flex-column" id="common_menu">
+                <li class="button nav-item text-center" id="login"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga in</a></li>
+                <li class="button_spacer"></li>
+                <li class="button nav-item text-center" id="overview"><a class="nav-link p-0" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a></li>
+                <li class="button_spacer"></li>
+                <li class="button nav-item text-center" id="search"><a class="nav-link p-0" asp-controller="Home" asp-action="Search" style="text-decoration: none">Sök</a></li>
+                <li class="button_spacer"></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Information" style="text-decoration: none">Information</a></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Ändra lösen</a></li>
+                <li class="button nav-item text-center" id="help"><a class="nav-link p-0" asp-controller="Home" asp-action="Index" style="text-decoration: none">Logga ut</a></li>
+            </ul>
+            <div class="menu-header text-white">
+                Admin
+            </div>
+        </nav>
+        <main id="box-right">
+            <div id="box-top-1">
+                <div id="system-title-box">
+                    Resursbokning - 3.0.0
+                </div>
+                <div id="logged-in-as">
+                    Ej inloggad
+                </div>
+            </div>
+            <div id="box-content">
+
+                @RenderBody()
+
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/jquery.ui.datepicker-sv.js"></script>
+    <script src="~/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
