@@ -1,4 +1,5 @@
 ﻿@model UnitResViewModel
+@using Newtonsoft.Json
 
 <div id="content-1"></div>
 <div id="content-2">
@@ -175,7 +176,7 @@
 
     </div>
 
-    @await Html.PartialAsync("_WeekHeader")
+    @await Html.PartialAsync("Overview/_WeekHeader")
 
 
     <div id="week-overview-list">
@@ -225,7 +226,7 @@
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
                     <div class="data-item " data-rgid="" data-rid="" value="@wday">
-                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">@wday</a>
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </div>
                 </div>
             }
@@ -329,7 +330,7 @@
     <!-- booking-and-info-right-box -->
     <div id="room-day-right-box">
         @*@await Html.PartialAsync("_ResourceInfo")*@
-        @await Html.PartialAsync("_Booking")
+        @await Html.PartialAsync("Overview/_Booking")
     </div>
 
     @section Scripts{
@@ -535,7 +536,7 @@
 
 
         </script>
-    } 
+    }
 
-    </div>
+</div>
 <div id="content-3"></div>

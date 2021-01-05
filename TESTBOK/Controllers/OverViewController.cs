@@ -31,7 +31,7 @@ namespace TESTBOK.Controllers
 
         // GET: OverViewController
         [HttpGet]
-        public ActionResult Overview(int? id, string? datePicker)
+        public ActionResult Overview(int? id, string datePicker)
         {
             var datum = string.Empty;
             var date = DateTime.Now;
@@ -114,12 +114,24 @@ namespace TESTBOK.Controllers
 
 
         // GET: OverViewController
-        public ActionResult OverviewResource(int id)
+        public ActionResult OverviewResource(int id, string datePicker)
         {
+            var datum = string.Empty;
+            var date = DateTime.Now;
+            if (datePicker != null)
+            {
+                datum = datePicker;
+                date = Convert.ToDateTime(datum);
+            }
+
+            else
+            {
+                datum = date.ToString("yyyy-MM-dd");
+            }
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             Calendar cal = dfi.Calendar;
-            var date = DateTime.Now;
-            var datum = date.ToString("yyyy-MM-dd");
+
+            datum = date.ToString("yyyy-MM-dd");
             var day = date.ToString("dddd");
             //var year = cal.GetYear(date);
             
@@ -167,8 +179,15 @@ namespace TESTBOK.Controllers
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
 
+            /* Behöver ändras till att inte läsa in alla bokningar */
             var bookings = _context.Bookings.ToList();
-            viewModel.BookingList = bookings;
+            //viewModel.BookingList = bookings;
+
+            /* Filtrerar ut bokningar baserat på nuvarande vecka. Ändras till att läsa in 30 veckor. */
+            var filteredBookings = from booking in bookings
+                                   where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
+                                   select booking;
+            viewModel.BookingList = filteredBookings;
 
             return View(viewModel);
         }
