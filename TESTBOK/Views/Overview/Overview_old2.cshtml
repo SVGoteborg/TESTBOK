@@ -1,5 +1,5 @@
 ﻿@model UnitResViewModel
-@using Newtonsoft.Json
+
 <style>
     .vlog {
         border: 1px solid #906A32;
@@ -180,34 +180,34 @@
             </div>
             <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
         </div>*@
-    @await Html.PartialAsync("Overview/_WeekNavigation")
+    @await Html.PartialAsync("_WeekNavigation")
 
-    @await Html.PartialAsync("Overview/_WeekHeader")
+    @await Html.PartialAsync("_WeekHeader")
 
     <div id="week-overview-list">
         @foreach (var res in Model.FilteredResourceList)
         {
-            <div class="list-row" data-rid="">
-                <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
-                <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
-                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
-                </div>
-
-                @foreach (var wday in ViewBag.WeekDays)
-                {
-                    <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building" data-rgid="" data-rid="">
-                        @*// 0:00 to 08:00 marked block.*@
-                        <div class="morning_block"></div>
-                        @*// 21:00 to 24:00 marked block.*@
-                        <div class="evening_block"></div>
-                        <div class="data-item" data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" value="@wday">
-                            <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </div>
-                        @{next++;}
-                    </div>
-                }
-                @{next = 0;}
+        <div class="list-row" data-rid="">
+            <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
+            <div class="overview-item-short room_id_btn" data-rgid="" data-rid="">
+                <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" asp-route-id="@res.ResId" style="text-decoration: none">@res.ResName</a>
             </div>
+
+            @foreach (var wday in ViewBag.WeekDays)
+            {
+                <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" class="overview-item dotip_building" data-rgid="" data-rid="">
+                    @*// 0:00 to 08:00 marked block.*@
+                    <div class="morning_block"></div>
+                    @*// 21:00 to 24:00 marked block.*@
+                    <div class="evening_block"></div>
+                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                    @{next++;}
+                </div>
+            }
+            @{next = 0;}
+        </div>
             @*@await Html.PartialAsync("_WeekDays")*@
         }
 
@@ -252,9 +252,9 @@
             </div>*@
     </div>
 
-    @await Html.PartialAsync("Overview/_WeekHeader")
+    @await Html.PartialAsync("_WeekHeader")
 
-    @await Html.PartialAsync("Overview/_WeekNavigationBtm")
+    @await Html.PartialAsync("_WeekNavigation")
     @*<div id="wrd-nav-box_top" class="wrd-nav-box">
             <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
             <label id="date-select-lbl_btm" for="date-select-input_btm" class="left date-select-lbl">Datum: </label>
@@ -289,45 +289,44 @@
     <script>
     $(document).ready(function () {
         $('#0').addClass('selected_filter_btn');
-        });
+    });
+
+    //function addSelectedClass() {
+    //    var element = document.getElementById("0");
+    //    element.classList.add("selected_filter_btn");
+    //}
+
+    jQuery("#unitFilter .buttonsmall").click(function () {
+        jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
+        jQuery(this).toggleClass('selected_filter_btn');
+        console.log('Button clicked');
+    });
+
+        @*$('.selected_filter_btn').change(function () {
+
+            let currentId = $(this).val();
+
+            $('.selected_filter_btn').datepicker('setId', new Id(currentId));
 
 
-            let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
-            console.log(bookingsFromViewModel);
-            $(".overview-item").on('click', function () {
-                let el = $(this);
-                let IdAndDate = $(this).attr("id");
-                const [ resourceId, currentDate ] = IdAndDate.split("_");
+            var url = "@Url.Action("GetIdFromFilter", "OverView")";
 
-                let selectedBooking = getBooking(parseInt(resourceId), currentDate);
-                let startTime = selectedBooking.startTime.slice(11, 16);
-                let stopTime = selectedBooking.stopTime.slice(11, 16);
-
-                $(el).popover({ content: `${startTime} -> ${stopTime}` });
-        });
-
-            function getBooking(id, startDate) {
-                for (const booking of bookingsFromViewModel) {
-                    const [startD] = booking.startDate.split("T");
-                    if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
-                        console.log("startD = " + startD + " startDate = " + startDate);
-                        console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
-                        return booking;
-                    }
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(currentId),
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
                 }
-            }
-
-
-            jQuery("#unitFilter .buttonsmall").click(function () {
-                jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
-                jQuery(this).toggleClass('selected_filter_btn');
-                console.log('Button clicked');
-            });
-
+            }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
+            $(".selected_filter_btn").val(currentId);
+        }); // end change*@
 
     </script>
     <script>
-
+        //$(".date-select-input").val(currentDate);
         $.datepicker.regional['sv'] = {
             closeText: 'Stäng',
             prevText: '< Föregående',
@@ -362,21 +361,84 @@
                     gotoCurrent: true
             });
         });
-
-        $('.date-select-input').unbind('change');
         $('.date-select-input').change(function () {
 
             let currentDate = $(this).val();
 
             $('.date-select-input').datepicker('setDate', new Date(currentDate));
 
-            window.location.href = "@Url.Action("Overview", "Overview")" + `?datePicker=${currentDate}`;
 
+            var url = "@Url.Action("GetDateFromDatePicker", "OverView")";
+
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(currentDate),
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                }
+            }).then(res => res.json())
+                .then(response => console.log('Success:', JSON.stringify(response)))
+                .catch(error => console.error('Error:', error));
             $(".date-select-input").val(currentDate);
         }); // end change
 
 
-        
+        //$.timepicker.regional['sv'] = {
+        //    timeOnlyTitle: 'Välj klockslag',
+        //    timeText: 'Tid',
+        //    hourText: 'Timma',
+        //    minuteText: 'Minut',
+        //    secondText: 'Sekund',
+        //    millisecText: 'Millisekund',
+        //    timezoneText: 'Tidszon',
+        //    currentText: 'Nu',
+        //    closeText: 'Stäng',
+        //    timeFormat: 'HH:mm',
+        //    amNames: ['AM', 'A'],
+        //    pmNames: ['PM', 'P'],
+        //    isRTL: false
+        //};
+        //$.timepicker.setDefaults($.timepicker.regional['sv']);
+
+        //$.datepicker.setDefaults({
+        //    showOn: "both",
+        //    buttonImageOnly: true,
+        //    buttonImage: "calendar.gif",
+        //    buttonText: "Calendar"
+        //});
+
+        //$(".hasDatepicker").datepicker({
+        //    showWeek: true
+        //});
+
+        //$("#date-select-input_top").datepicker();
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_top").datepicker({
+        //        showOtherMonths: true,
+        //        selectOtherMonths: true,
+        //        showButtonPanel: true,
+        //        changeMonth: true,
+        //        changeYear: true,
+        //        showWeek: true,
+        //        firstDay: 1
+        //    });
+        //});
+
+
+        //$(document).ready(function () {
+        //    $("#date-select-input_btm").datepicker(
+        //        {
+        //            showOtherMonths: true,
+        //            selectOtherMonths: true,
+        //            showButtonPanel: true,
+        //            changeMonth: true,
+        //            changeYear: true,
+        //            showWeek: true,
+        //            firstDay: 1
+        //        });
+        //});
 
     </script>
 }
