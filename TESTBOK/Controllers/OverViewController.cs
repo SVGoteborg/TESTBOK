@@ -31,7 +31,7 @@ namespace TESTBOK.Controllers
 
         // GET: OverViewController
         [HttpGet]
-        public ActionResult Overview(int? id, string? datePicker)
+        public ActionResult Overview(int? id, string datePicker)
         {
             var datum = string.Empty;
             var date = DateTime.Now;
@@ -53,6 +53,16 @@ namespace TESTBOK.Controllers
             ViewBag.yearWeeks = Dates.LastWeekOfYear(date);
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             ViewBag.vecka = week;
+
+            DateTime dt = date.StartOfWeek(DayOfWeek.Monday);
+            DateTime dt7 = dt.AddDays(7);
+            List<string> datesForward = new List<string>();
+            foreach (DateTime loopDay in dt.EachDay(dt7))
+            {
+                datesForward.Add(loopDay.ToString("yyyy-MM-dd"));
+            }
+            ViewBag.ForwardDates = datesForward;
+
             List<Booking> bookings = _context.Bookings.ToList();
 
             var viewModel = new UnitResViewModel();
@@ -104,12 +114,24 @@ namespace TESTBOK.Controllers
 
 
         // GET: OverViewController
-        public ActionResult OverviewResource(int id)
+        public ActionResult OverviewResource(int id, string datePicker)
         {
+            var datum = string.Empty;
+            var date = DateTime.Now;
+            if (datePicker != null)
+            {
+                datum = datePicker;
+                date = Convert.ToDateTime(datum);
+            }
+
+            else
+            {
+                datum = date.ToString("yyyy-MM-dd");
+            }
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             Calendar cal = dfi.Calendar;
-            var date = DateTime.Now;
-            var datum = date.ToString("yyyy-MM-dd");
+
+            datum = date.ToString("yyyy-MM-dd");
             var day = date.ToString("dddd");
             //var year = cal.GetYear(date);
             
@@ -126,6 +148,7 @@ namespace TESTBOK.Controllers
             ViewBag.Dagens = datum;
             ViewBag.Veckodag = day;
             var week = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            // Get date for monday in this week
             DateTime dt = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
             DateTime dt210 = dt.AddDays(30 * 7);
             List<string> datesForward = new List<string>();
@@ -156,8 +179,15 @@ namespace TESTBOK.Controllers
             List<string> weekdays = new List<string> { "må", "ti", "on", "to", "fr", "lö", "sö" };
             ViewBag.WeekDays = weekdays;
 
+            /* Behöver ändras till att inte läsa in alla bokningar */
             var bookings = _context.Bookings.ToList();
-            viewModel.BookingList = bookings;
+            //viewModel.BookingList = bookings;
+
+            /* Filtrerar ut bokningar baserat på nuvarande vecka. Ändras till att läsa in 30 veckor. */
+            var filteredBookings = from booking in bookings
+                                   where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
+                                   select booking;
+            viewModel.BookingList = filteredBookings;
 
             return View(viewModel);
         }
@@ -192,6 +222,13 @@ namespace TESTBOK.Controllers
         public IActionResult GetDateFromDatePicker([FromBody]string datePicker)
         {
             return RedirectToAction(nameof(Overview), new {datePicker });
+            //return Json(datePicker);
+        }
+
+        [HttpPost]
+        public IActionResult GetIdFromFilter([FromBody] string Id)
+        {
+            return RedirectToAction(nameof(Overview), new { Id });
             //return Json(datePicker);
         }
         // GET: OverViewController/Details/5
