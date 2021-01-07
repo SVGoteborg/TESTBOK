@@ -28,6 +28,9 @@ namespace TESTBOK
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+               options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddControllersWithViews();
             services.AddDbContext<DBctx>(options =>
        options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
