@@ -31,6 +31,15 @@
         font-size: 12px;
         font-style: italic;
     }
+
+    .change_week {
+        color: #121212;
+    }
+
+        .change_week:hover {
+            color: #fff;
+        }
+
 </style>
 <div id="content-1"></div>
 <div id="content-2">
@@ -250,36 +259,38 @@
 
 <div id="content-3"></div>
 
-<script type="text/javascript">
+@section Scripts{
+    <script type="text/javascript">
 
-    clearContent('#content-1');
-    clearContent('#content-3');
+        clearContent('#content-1');
+        clearContent('#content-3');
 
-    $(function () {
-        $("#start-date").datepicker();
-    });
+        $(function () {
+            $("#start-date").datepicker();
+        });
 
-    $('#search_submit_btn').unbind('click');
-    $('#search_submit_btn').click(function () {
-        var bIDcsl = $('.bIDsChk:checked').map(function () {
-            return this.id;
-        }).get().join(',');
-        $.post('part/search/s_result.php',
-            {
-                bIDs: bIDcsl,
-                roomType: $("#room-type").val(),
-                roomSize: $("#size").val(),
-                startDate: $("#start-date").val(),
-                sHrs: $("#sHrs").val(),
-                sMin: $("#sMin").val(),
-                eHrs: $("#eHrs").val(),
-                eMin: $("#eMin").val(),
-                numWeeks: $("#numWeeks").val()
-            },
-            function (data) {
-                $('#content-3').html(data);
-            });
-        return false;
-    });
+        $('#search_submit_btn').unbind('click');
+        $('#search_submit_btn').click(function () {
+            var bIDcsl = $('.bIDsChk:checked').map(function () {
+                return this.id;
+            }).get().join(',');
+            $.post('part/search/s_result.php',
+                {
+                    bIDs: bIDcsl,
+                    roomType: $("#room-type").val(),
+                    roomSize: $("#size").val(),
+                    startDate: $("#start-date").val(),
+                    sHrs: $("#sHrs").val(),
+                    sMin: $("#sMin").val(),
+                    eHrs: $("#eHrs").val(),
+                    eMin: $("#eMin").val(),
+                    numWeeks: $("#numWeeks").val()
+                },
+                function (data) {
+                    $('#content-3').html(data);
+                });
+            return false;
+        });
 
-</script>
+    </script>
+}

@@ -1,5 +1,5 @@
 ﻿@model UnitResViewModel
-
+@using Newtonsoft.Json
 
 <style>
     .vlog {
@@ -96,6 +96,7 @@
             border: 1px solid #4a7729;
             margin-bottom: 10px;
         }
+
         .tag1 {
             position: absolute;
             top: 0;
@@ -105,6 +106,7 @@
             width: 8px;
             height: 100%;
         }
+
         .tag2 {
             position: absolute;
             top: 0;
@@ -114,6 +116,7 @@
             width: 4px;
             height: 100%;
         }
+
         .tag3 {
             position: absolute;
             top: 0;
@@ -167,9 +170,9 @@
         <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
              title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
     </div>-->
-    @await Html.PartialAsync("_WeekNavigationOBtn")
+    @await Html.PartialAsync("Overview/_WeekNavigationOBtn")
 
-    @await Html.PartialAsync("_WeekHeader")
+    @await Html.PartialAsync("Overview/_WeekHeader")
 
     <div id="week-overview-list">
         <div class="list-row " data-rID=" . $rID . "></div>
@@ -234,15 +237,46 @@
 
     </div>
 
-    @await Html.PartialAsync("_WeekHeader")
+    @await Html.PartialAsync("Overview/_WeekHeader")
 
-    @await Html.PartialAsync("_WeekNavigationOBtn")
+    @await Html.PartialAsync("Overview/_WeekNavigationOBtnBtm")
 
     <div class="clear"></div>
 
     @section Scripts{
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <script>
+        // Get bookings from ViewModel
+
+        let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
+        console.log(bookingsFromViewModel);
+        $(".overview-item").on('click', function () {
+            let el = $(this);
+            let IdAndDate = $(this).attr("id");
+            const [ resourceId, currentDate ] = IdAndDate.split("_");
+
+            let selectedBooking = getBooking(parseInt(resourceId), currentDate);
+            let startTime = selectedBooking.startTime.slice(11, 16);
+            let stopTime = selectedBooking.stopTime.slice(11, 16);
+
+            $(el).popover({ content: `${startTime} -> ${stopTime}` });
+        });
+
+        function getBooking(id, startDate) {
+            for (const booking of bookingsFromViewModel) {
+                const [startD] = booking.startDate.split("T");
+                if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
+                    console.log("startD = " + startD + " startDate = " + startDate);
+                    console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
+                    return booking;
+                }
+            }
+        }
+
+
+        </script>
         <script type="text/javascript">
             // For Datepicker
             $.datepicker.regional['sv'] = {
@@ -277,17 +311,23 @@
                 });
 
             });
+            $('.date-select-input').unbind('change');
             $('.date-select-input').change(function () {
 
                 let currentDate = $(this).val();
 
                 $('.date-select-input').datepicker('setDate', new Date(currentDate));
-            })
+
+                window.location.href = "@Url.Action("OverviewResource", "Overview")" + `?datePicker=${currentDate}`;
+
+                $(".date-select-input").val(currentDate);
+            });
 
 
         </script>
 
         <script type="text/javascript">
+            // Test for bookings
             //Show bookings
             let book1 = document.createElement("div");
             let book2 = document.createElement("div");
@@ -296,14 +336,14 @@
             //book2.addClass('tag2');
 
             //const oldDiv = $('#4_2020-12-29');
-            let oldDiv = document.getElementById('4_2020-12-29');
+            let oldDiv = document.getElementById('4_2021-01-05');
             oldDiv.appendChild(book1);
             oldDiv.appendChild(book2);
             console.log(oldDiv);
 
-            //$('#4_2020-12-29').addClass('tag3');
-            //$('#4_2021-01-05').addClass('tag2');
-            //$('#4_2021-01-12').addClass('tag2');
+                    //$('#4_2020-12-29').addClass('tag3');
+                    //$('#4_2021-01-05').addClass('tag2');
+                    //$('#4_2021-01-12').addClass('tag2');
 
         </script>
         <!--<script>
@@ -311,7 +351,7 @@
                 $('#0').addClass('selected_filter_btn');
             });
 
-            
+
 
         <!--</script>-->
         @*<script type="text/javascript">
