@@ -247,11 +247,8 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-        <script type="text/javascript">
-        $(document).ready(function () {
-            $('#0').addClass('selected_filter_btn');
-            });
-
+        <script>
+        // Get bookings from ViewModel
 
         let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
         console.log(bookingsFromViewModel);
@@ -330,6 +327,7 @@
         </script>
 
         <script type="text/javascript">
+            // Test for bookings
             //Show bookings
             let book1 = document.createElement("div");
             let book2 = document.createElement("div");
