@@ -63,15 +63,17 @@ namespace TESTBOK.Controllers
             }
             ViewBag.ForwardDates = datesForward;
 
-            List<Booking> bookings = _context.Bookings.ToList();
+            /* Filtrerar ut bokningar baserat på nuvarande vecka */
+            List<Booking> bookings = _context.Bookings.Where(b => b.StartTime > dt && b.StopTime < dt7).ToList();
 
             var viewModel = new UnitResViewModel();
 
             /* Filtrerar ut bokningar baserat på nuvarande vecka */
-            var filteredBookings = from booking in bookings
-                                   where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
-                                   select booking;
-            viewModel.BookingList = filteredBookings;
+            //var filteredBookings = from booking in bookings
+            //                       where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
+            //                       select booking;
+            //viewModel.BookingList = filteredBookings;
+            viewModel.BookingList = bookings;
 
             var resource = _context.Resources.OrderBy(u => u.UnitId).ToList();
             IEnumerable<Resource> resources = resource;
@@ -180,14 +182,16 @@ namespace TESTBOK.Controllers
             ViewBag.WeekDays = weekdays;
 
             /* Behöver ändras till att inte läsa in alla bokningar */
-            var bookings = _context.Bookings.ToList();
+            //var bookings = _context.Bookings.ToList();
             //viewModel.BookingList = bookings;
 
-            /* Filtrerar ut bokningar baserat på nuvarande vecka. Ändras till att läsa in 30 veckor. */
-            var filteredBookings = from booking in bookings
-                                   where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
-                                   select booking;
-            viewModel.BookingList = filteredBookings;
+            /* Filtrerar ut bokningar baserat på 30 veckor och resurs. */
+            List<Booking> bookings = _context.Bookings.Where(b => b.ResourceId == id && b.StartTime > dt && b.StopTime < dt210).ToList();
+            //var filteredBookings = from booking in bookings
+            //                       where cal.GetWeekOfYear(booking.StartDate, dfi.CalendarWeekRule, dfi.FirstDayOfWeek) == week
+            //                       select booking;
+            //viewModel.BookingList = filteredBookings;
+            viewModel.BookingList = bookings;
 
             return View(viewModel);
         }

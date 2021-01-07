@@ -287,46 +287,54 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
-    $(document).ready(function () {
-        $('#0').addClass('selected_filter_btn');
-        });
 
 
-            let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
-            console.log(bookingsFromViewModel);
-            $(".overview-item").on('click', function () {
-                let el = $(this);
-                let IdAndDate = $(this).attr("id");
-                const [ resourceId, currentDate ] = IdAndDate.split("_");
+    let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
+    console.log(bookingsFromViewModel);
+    $(".overview-item").on('click', function () {
+        let el = $(this);
+        let IdAndDate = $(this).attr("id");
+        const [ resourceId, currentDate ] = IdAndDate.split("_");
 
-                let selectedBooking = getBooking(parseInt(resourceId), currentDate);
-                let startTime = selectedBooking.startTime.slice(11, 16);
-                let stopTime = selectedBooking.stopTime.slice(11, 16);
+        let selectedBooking = getBooking(parseInt(resourceId), currentDate);
+        let startTime = selectedBooking.startTime.slice(11, 16);
+        let stopTime = selectedBooking.stopTime.slice(11, 16);
 
-                $(el).popover({ content: `${startTime} -> ${stopTime}` });
-        });
+        $(el).popover({ content: `${startTime} -> ${stopTime}` });
+    });
 
-            function getBooking(id, startDate) {
-                for (const booking of bookingsFromViewModel) {
-                    const [startD] = booking.startDate.split("T");
-                    if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
-                        console.log("startD = " + startD + " startDate = " + startDate);
-                        console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
-                        return booking;
-                    }
-                }
+    function getBooking(id, startDate) {
+        for (const booking of bookingsFromViewModel) {
+            const [startD] = booking.startDate.split("T");
+            if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
+                console.log("startD = " + startD + " startDate = " + startDate);
+                console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
+                return booking;
             }
-
-
-            jQuery("#unitFilter .buttonsmall").click(function () {
-                jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
-                jQuery(this).toggleClass('selected_filter_btn');
-                console.log('Button clicked');
-            });
+        }
+    }
 
 
     </script>
-    <script>
+
+    <script type="text/javascript">
+        //Filterbutton Overview
+        $(document).ready(function () {
+            $('#0').addClass('selected_filter_btn');
+        });
+
+
+        jQuery("#unitFilter .buttonsmall").click(function () {
+            jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
+            jQuery(this).toggleClass('selected_filter_btn');
+            console.log('Button clicked');
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        //Datepicker
+
 
         $.datepicker.regional['sv'] = {
             closeText: 'Stäng',
@@ -376,7 +384,7 @@
         }); // end change
 
 
-        
+
 
     </script>
 }
