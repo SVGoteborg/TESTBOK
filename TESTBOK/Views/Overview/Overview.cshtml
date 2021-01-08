@@ -299,8 +299,11 @@
         let selectedBooking = getBooking(parseInt(resourceId), currentDate);
         let startTime = selectedBooking.startTime.slice(11, 16);
         let stopTime = selectedBooking.stopTime.slice(11, 16);
+        let leader = selectedBooking.leader;
+        let activity = selectedBooking.activity;
 
-        $(el).popover({ content: `${startTime} -> ${stopTime}` });
+        $(el).popover({ content: `${startTime} -> ${stopTime} | ${activity} | ${leader}` });
+        //$(el).popover({ content: `${startTime} -> ${stopTime}` });
     });
 
     function getBooking(id, startDate) {

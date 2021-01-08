@@ -192,12 +192,12 @@
 
             @foreach (var wday in ViewBag.WeekDays)
             {
-                <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" class="overview-item dotip_building" data-rgid="" data-rid="">
+                <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building" data-rgid="" data-rid="">
                     @*// 0:00 to 08:00 marked block.*@
                     <div class="morning_block"></div>
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
-                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" value="@wday">
+                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="" value="@wday">
                         <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                     </div>
 
@@ -252,7 +252,7 @@
 
         let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
         console.log(bookingsFromViewModel);
-        $(".overview-item").on('click', function () {
+            $(".overview-item").on('click', function () {
             let el = $(this);
             let IdAndDate = $(this).attr("id");
             const [ resourceId, currentDate ] = IdAndDate.split("_");
@@ -260,8 +260,10 @@
             let selectedBooking = getBooking(parseInt(resourceId), currentDate);
             let startTime = selectedBooking.startTime.slice(11, 16);
             let stopTime = selectedBooking.stopTime.slice(11, 16);
+            let leader = selectedBooking.leader;
+            let activity = selectedBooking.activity;
 
-            $(el).popover({ content: `${startTime} -> ${stopTime}` });
+            $(el).popover({ content: `${startTime} -> ${stopTime} | ${activity} | ${leader}` });
         });
 
         function getBooking(id, startDate) {
