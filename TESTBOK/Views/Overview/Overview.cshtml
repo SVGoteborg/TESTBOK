@@ -185,7 +185,7 @@
     @await Html.PartialAsync("Overview/_WeekHeader")
 
     <div id="week-overview-list">
-        @foreach (var res in Model.FilteredResourceList)
+        @foreach (var res in Model.FilteredResourceList )
         {
             <div class="list-row" data-rid="">
                 <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
@@ -200,6 +200,7 @@
                         <div class="morning_block"></div>
                         @*// 21:00 to 24:00 marked block.*@
                         <div class="evening_block"></div>
+                        <display-bookings Booking=@Model.BookingList Id=@res.ResId Date="@ViewBag.ForwardDates[next]"></display-bookings>
                         <div class="data-item" data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" value="@wday">
                             <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                         </div>
@@ -290,7 +291,7 @@
 
 
     let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
-    console.log(bookingsFromViewModel);
+    
     $(".overview-item").on('click', function () {
         let el = $(this);
         let IdAndDate = $(this).attr("id");
@@ -321,8 +322,58 @@
         //Filterbutton Overview
         $(document).ready(function () {
             $('#0').addClass('selected_filter_btn');
+
+
+            let selectedDate = $('.date-select-input').val();
+
+            /* Next monday */
+            let nm = new Date(selectedDate);
+            nm.setUTCDate(nm.getUTCDate() + (7 - nm.getUTCDay()) % 7 + 1);
+            let nextMonday = new Date(nm.getTime() - (nm.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+            $('#next-wk-btn_top').prop('title', `Nästa Vecka från ${nextMonday}`);
+            $('#next-wk-btn_btm').prop('title', `Nästa Vecka från ${nextMonday}`);
+
+            /* Previous monday */
+            let pm = new Date(selectedDate);
+            pm.setUTCDate(pm.getUTCDate() - (pm.getUTCDay() + 6) % 7);
+            pm.setUTCDate(pm.getUTCDate() - 7);
+            let prevMonday = new Date(pm.getTime() - (pm.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+            $('#prev-wk-btn_top').prop('title', `Föregående vecka ${prevMonday}`);
+            $('#prev-wk-btn_btm').prop('title', `Föregående vecka ${prevMonday}`);
+
+
+        }); // End document ready
+
+        /* eventlisteners for next week buttons */
+        $('#next-wk-btn_top, #next-wk-btn_btm').click(function () {
+            let nextMonday = $(this).attr('title');
+            nextMonday = nextMonday.split(" ", -1)[3];
+            window.location.href = "@Url.Action("Overview", "Overview")" + `?datePicker=${nextMonday}`;
         });
 
+        /* eventlisteners for previous week buttons */
+        $('#prev-wk-btn_top, #prev-wk-btn_btm').click(function () {
+            let previousMonday = $(this).attr('title');
+            previousMonday = previousMonday.split(" ", -1)[2];
+           window.location.href = "@Url.Action("Overview", "Overview")" + `?datePicker=${previousMonday}`;
+        });
+
+        /* eventlistener for selected week */
+        $("select.wk_selector").change(function () {
+            let week = $(this).children("option:selected").val();
+            let date = getDateOfWeek(week, new Date().getFullYear()).toString();
+            date = date.split(" ").slice(1, 4);
+            let newDate = new Date(date);
+            newDate = new Date(newDate.getTime() - (newDate.getTimezoneOffset() * 60000)).toISOString().split("T")[0];
+            window.location.href = "@Url.Action("Overview", "Overview")" + `?datePicker=${newDate}`;
+        });
+
+        function getDateOfWeek(w, y) {
+            let date = new Date(y, 0, (1 + (w - 1) * 7));
+            date.setDate(date.getDate() + (1 - date.getDay()));
+            return date
+        }
+        /* ---------------------------------------- */
 
         jQuery("#unitFilter .buttonsmall").click(function () {
             jQuery("#unitFilter .buttonsmall").removeClass('selected_filter_btn');
