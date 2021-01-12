@@ -291,6 +291,8 @@
 
     let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
     console.log(bookingsFromViewModel);
+    let usersFromViewModel = @Html.Raw(Json.Serialize(Model.UserList));
+    console.log(usersFromViewModel);
     $(".overview-item").on('click', function () {
         let el = $(this);
         let IdAndDate = $(this).attr("id");

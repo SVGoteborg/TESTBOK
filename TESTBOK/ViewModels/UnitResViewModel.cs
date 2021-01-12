@@ -19,6 +19,7 @@ namespace TESTBOK.ViewModels
         public IEnumerable<Resource> ResourcesList { get; set; }
         public IEnumerable<Resource> FilteredResourceList { get; set; }
         public IEnumerable<Booking> BookingList { get; set; }
+        public IEnumerable<User> UserList { get; set; }
 
     }
 }

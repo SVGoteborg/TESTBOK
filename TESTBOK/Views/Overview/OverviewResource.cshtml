@@ -97,6 +97,15 @@
             margin-bottom: 10px;
         }
 
+        .dblock {
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-top: 23px solid;
+            width: 0;
+            height: 100%;
+        }
+
         .tag1 {
             position: absolute;
             top: 0;
@@ -192,14 +201,18 @@
 
             @foreach (var wday in ViewBag.WeekDays)
             {
-                <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building" data-rgid="" data-rid="">
+                <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building nav-item" data-toggle="popover-hover" data-bs-trigger="hover focus" data-rgid="@Model.Unit.UnitId" data-rid="@Model.Resource.ResId" data-date="@ViewBag.ForwardDates[next]">
+                    @*<a class="text-dark nav-link p-0" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;</a>*@
                     @*// 0:00 to 08:00 marked block.*@
                     <div class="morning_block"></div>
                     @*// 21:00 to 24:00 marked block.*@
                     <div class="evening_block"></div>
-                    <div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="" value="@wday">
+
+                    @*Här skall alla bokningar skapas som div-taggar*@
+
+                    @*<div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" value="@wday">
                         <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </div>
+                    </div>*@
 
                 </div>
                 next++;
@@ -252,30 +265,67 @@
 
         let bookingsFromViewModel = @Html.Raw(Json.Serialize(Model.BookingList));
         console.log(bookingsFromViewModel);
-            $(".overview-item").on('click', function () {
-            let el = $(this);
-            let IdAndDate = $(this).attr("id");
-            const [ resourceId, currentDate ] = IdAndDate.split("_");
+        let usersFromViewModel = @Html.Raw(Json.Serialize(Model.UserList));
+        console.log(usersFromViewModel);
 
-            let selectedBooking = getBooking(parseInt(resourceId), currentDate);
-            let startTime = selectedBooking.startTime.slice(11, 16);
-            let stopTime = selectedBooking.stopTime.slice(11, 16);
-            let leader = selectedBooking.leader;
-            let activity = selectedBooking.activity;
+        // Select all elements with data-toggle="popover" in the document
+        //$('[data-toggle="popover"]').popover();
+            //$(".overview-item").popover() 
+            //$(document).ready(function () {
+            //    $('[data-toggle="popover"]').popover({
+            //        trigger: 'hover'
+            //    });
 
-            $(el).popover({ content: `${startTime} -> ${stopTime} | ${activity} | ${leader}` });
-        });
+            //$(".overview-item").on('click', function () {
+            //    let el = $(this);
+            //    let IdAndDate = $(this).attr("id");
+            //    const [ resourceId, currentDate ] = IdAndDate.split("_");
 
-        function getBooking(id, startDate) {
-            for (const booking of bookingsFromViewModel) {
-                const [startD] = booking.startDate.split("T");
-                if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
-                    console.log("startD = " + startD + " startDate = " + startDate);
-                    console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
-                    return booking;
-                }
-            }
-        }
+            //    let selectedBooking = getBooking(parseInt(resourceId), currentDate);
+            //    let startTime = selectedBooking.startTime.slice(11, 16);
+            //    let stopTime = selectedBooking.stopTime.slice(11, 16);
+            //    let leader = selectedBooking.leader;
+            //    let activity = selectedBooking.activity;
+
+            //    $(el).popover({ content: `${startTime} -> ${stopTime} | ${activity} | ${leader}` });
+            //});
+
+            // popovers initialization - on hover
+            //$('[data-toggle="popover-hover"]').popover({
+            //    html: false,
+            //    trigger: 'hover',
+            //    content: function () {
+            //        let IdAndDate = $(this).attr("id");
+                    
+            //        const [resourceId, currentDate] = IdAndDate.split("_");
+            //        try {
+            //            let selectedBooking = getBooking(parseInt(resourceId), currentDate);
+            //            let startTime = selectedBooking.startTime.slice(11, 16);
+            //            let stopTime = selectedBooking.stopTime.slice(11, 16);
+            //            let leader = selectedBooking.leader;
+            //            let activity = selectedBooking.activity;
+            //            if (selectedBooking != null) {
+            //                return `${startTime} -> ${stopTime} | ${activity} | ${leader}`;
+            //            }
+            //            return null;
+            //        }
+            //        catch {
+
+            //        }
+                    
+            //    }
+            //});
+
+        //function getBooking(id, startDate) {
+        //    for (const booking of bookingsFromViewModel) {
+        //        const [startD] = booking.startDate.split("T");
+        //        if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
+        //            console.log("startD = " + startD + " startDate = " + startDate);
+        //            console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
+        //            return booking;
+        //        }
+        //    }
+        //}
 
 
         </script>
@@ -330,6 +380,33 @@
 
         <script type="text/javascript">
             // Test for bookings
+            $(".overview-item").on('click', function () {
+                let el = $(this);
+                let IdAndDate = $(this).attr("id");
+                const [ resourceId, currentDate ] = IdAndDate.split("_");
+
+                let selectedBooking = getBooking(parseInt(resourceId), currentDate);
+                let startTime = selectedBooking.startTime.slice(11, 16);
+                let stopTime = selectedBooking.stopTime.slice(11, 16);
+                let leader = selectedBooking.leader;
+                let activity = selectedBooking.activity;
+
+                $(el).popover({ content: `${startTime} -> ${stopTime} | ${activity} | ${leader}` });
+            });
+
+            function getBooking(id, startDate) {
+                for (const booking of bookingsFromViewModel) {
+                    const [startD] = booking.startTime.split("T");
+                    console.log("[startD] = " + [startD] + " startDate = " + startDate);
+                    console.log("startD = " + startD + " startDate = " + startDate);
+                    if (startDate.normalize() === startD.normalize() && booking.resource.resId === id) {
+                        console.log("startD = " + startD + " startDate = " + startDate);
+                        console.log("booking.resource.resId = " + booking.resource.resId + " id = " + id);
+                        return booking;
+                    }
+                }
+            }
+
             //Show bookings
             let book1 = document.createElement("div");
             let book2 = document.createElement("div");
@@ -338,7 +415,7 @@
             //book2.addClass('tag2');
 
             //const oldDiv = $('#4_2020-12-29');
-            let oldDiv = document.getElementById('4_2021-01-05');
+            let oldDiv = document.getElementById('4_2021-01-12');
             oldDiv.appendChild(book1);
             oldDiv.appendChild(book2);
             console.log(oldDiv);
