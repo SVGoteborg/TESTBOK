@@ -5,18 +5,6 @@
     <UserSecretsId>138e3152-0599-472a-83c8-38704f9def90</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\**" />
-    <Content Remove="Migrations\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <None Remove="Migrations\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Migrations\20210108184316_Initial.cs" />
-    <Compile Include="Migrations\20210108184316_Initial.Designer.cs" />
-    <Compile Include="Migrations\DBctxModelSnapshot.cs" />
-  </ItemGroup>
 
 
 
@@ -30,6 +18,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
+
 
 
 
