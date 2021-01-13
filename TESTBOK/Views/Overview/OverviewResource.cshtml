@@ -144,41 +144,7 @@
             <img src="~/led16/printer.png" title="Skriv ut" alt="Skriv ut" />
         </div>
     </div>
-
-    <!--<div id="wrd-nav-box_top" class="wrd-nav-box">
-        <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(' . $prevWk . ')"
-             title="Föregående vecka(' . $prevWk . ')">
-            &lt;&lt;&lt; -1 Vecka
-        </div>
-        <div id="to-overview-btn_top" class="button left to-overview-btn change_week">
-            <a class="" asp-controller="OverView" asp-action="Overview" style="text-decoration: none">Översikt</a>
-        </div>
-        <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-        <input id="date-select-input_top" type="text" class="left date-select-input" value="@ViewBag.Dagens" />
-        <label id="week_num_top_lbl" for="week-num_top" class="left week_num_lbl">Vecka: </label>
-        <div id="wk_select_top" class="left week-num">
-            <select id="wk_selector_top" class="wk_selector">-->
-    @*for ($w = 1; w < ($numWeeksInYear + 1) ; $w++) {
-            selected = "";
-            if ($ovWeek == $w) {
-                selected = "selected"
-            }
-            <option selected>' . $w . '</option>
-        }*@
-    <!--@for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
-                {
-                    if (vecka == ViewBag.vecka)
-                    {
-                        <option selected>@vecka</option>
-
-                    }
-                    <option>@vecka</option>
-                }
-            </select>
-        </div>
-        <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(' . $nextWk . ')"
-             title="Nästa vecka(' . $nextWk . ')">+1 Vecka &gt;&gt;&gt;</div>
-    </div>-->
+    
     @await Html.PartialAsync("Overview/_WeekNavigationOBtn")
 
     @await Html.PartialAsync("Overview/_WeekHeader")
@@ -201,53 +167,21 @@
 
             @foreach (var wday in ViewBag.WeekDays)
             {
-                <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building nav-item" data-toggle="popover-hover" data-bs-trigger="hover focus" data-rgid="@Model.Unit.UnitId" data-rid="@Model.Resource.ResId" data-date="@ViewBag.ForwardDates[next]">
-                    @*<a class="text-dark nav-link p-0" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;</a>*@
-                    @*// 0:00 to 08:00 marked block.*@
-                    <div class="morning_block"></div>
-                    @*// 21:00 to 24:00 marked block.*@
-                    <div class="evening_block"></div>
+    <div id="@(Model.Resource.ResId + "_" + ViewBag.ForwardDates[next])" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building nav-item" data-toggle="popover-hover" data-bs-trigger="hover focus" data-rgid="@Model.Unit.UnitId" data-rid="@Model.Resource.ResId" data-date="@ViewBag.ForwardDates[next]">
+        @*Tillfälligt bortkommenterat
+            <a class="text-dark nav-link p-0" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;</a>*@
+        @*// 0:00 to 08:00 marked block.*@
+        <div class="morning_block"></div>
+        @*// 21:00 to 24:00 marked block.*@
+        <div class="evening_block"></div>
+        <display-bookings Booking=@Model.BookingList User=@Model.UserList Id=@Model.Resource.ResId Date="@ViewBag.ForwardDates[next]"></display-bookings>
 
-                    @*Här skall alla bokningar skapas som div-taggar*@
 
-                    @*<div class="data-item " data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" title="@Model.Unit.ShortName | @Model.Resource.ResName | @ViewBag.ForwardDates[next]" value="@wday">
-                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@Model.Resource.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                    </div>*@
-
-                </div>
+    </div>
                 next++;
             }
         }
-        @*<div class="list-row " data-rID=" . $rID . "></div>
-
-            <div class="overview-item-short dotip_building" data-ttip="#rg' . $resource->getResourceGroupId() . '">
-                <span></span>
-            </div>*@
-        @*// Week number field.*@
-        <!--<div class="overview-item-short week_num" data-date="' . $mondayDate . '" data-rgID="' . $resource->getResourceGroupId() . '"
-         data-rID="' . $rID . '" title="' . $mondayDate . '-&gt;&gt;' . $sundayDate . '">
-        <span class="wkNumSpan">v' . $weekNumber .'</span>
-        </div>
-
-        <div class="overview-item ' . $tipClass . ' ' . $isSelected . '"
-         id="' . $id . '"
-         title=" . $resourceGroup->getResourceGroupShortName() . ' | ' . $resource->getResourceName() . ' | ' . $dt . '"
-         data-ttip="# . $tipCounter . '"
-         data-ref="part/show/view_resource_day.php"
-         data-target="#content-2"
-         data-rID="' . $resource->getResourceId() . '"
-         data-rgID=" . $resourceGroup->getResourceGroupID() . '"
-         data-date=" . $dt . '">-->
-        @*// 0:00 to 08:00 marked block.*@
-        <!--<div class="morning_block"></div>-->
-        @*// 21:00 to 24:00 marked block.*@
-        <!--<div class="evening_block"></div>
-        </div>
-
-        <div id="' . $tipCounter . '" class="hidden">
-            $dbk->getTooltipString();
-        </div>-->
-
+        
     </div>
 
     @await Html.PartialAsync("Overview/_WeekHeader")
@@ -408,17 +342,17 @@
             }
 
             //Show bookings
-            let book1 = document.createElement("div");
-            let book2 = document.createElement("div");
-            book1.setAttribute("class", "tag1");
-            book2.setAttribute("class", "tag2");
+            //let book1 = document.createElement("div");
+            //let book2 = document.createElement("div");
+            //book1.setAttribute("class", "tag1");
+            //book2.setAttribute("class", "tag2");
             //book2.addClass('tag2');
 
             //const oldDiv = $('#4_2020-12-29');
-            let oldDiv = document.getElementById('4_2021-01-12');
-            oldDiv.appendChild(book1);
-            oldDiv.appendChild(book2);
-            console.log(oldDiv);
+            //let oldDiv = document.getElementById('4_2021-01-12');
+            //oldDiv.appendChild(book1);
+            //oldDiv.appendChild(book2);
+            //console.log(oldDiv);
 
                     //$('#4_2020-12-29').addClass('tag3');
                     //$('#4_2021-01-05').addClass('tag2');

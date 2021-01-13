@@ -133,6 +133,14 @@
         border: 1px solid #4a7729;
         margin-bottom: 10px;
     }
+    .dblock {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-top: 23px solid;
+        width: 0;
+        height: 100%;
+    }
 </style>
 @{int next = 0;}
 
@@ -156,36 +164,13 @@
 
 
     </div>
-    @*<div id="wrd-nav-box_top" class="wrd-nav-box">
-            <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
-            <label id="date-select-lbl_top" for="date-select-input_top" class="left date-select-lbl">Datum: </label>
-            <input id="date-select-input_top" type="text" class="left date-select-input " value="@ViewBag.Dagens">
-            <label id="week_num_btn_lbl" for="week-num_btn" class="left week_num_lbl">Vecka: </label>
-            <div id="wk_select_btn" class="left week-num">
-                <select id="wk_selector_top" class="wk_selector">
-
-                    @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
-                    {
-                        if (vecka == ViewBag.vecka)
-                        {
-                            <option selected>@vecka</option>
-
-                        }
-                        else
-                        {
-                            <option>@vecka</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
-        </div>*@
+    
     @await Html.PartialAsync("Overview/_WeekNavigation")
 
     @await Html.PartialAsync("Overview/_WeekHeader")
 
     <div id="week-overview-list">
-        @foreach (var res in Model.FilteredResourceList )
+        @foreach (var res in Model.FilteredResourceList)
         {
             <div class="list-row" data-rid="">
                 <div class="overview-item-short dotip_building" data-ttip="" title="@res.Unit.ShortName">@res.Unit.ShortName</div>
@@ -195,90 +180,30 @@
 
                 @foreach (var wday in ViewBag.WeekDays)
                 {
-                    <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building" data-rgid="" data-rid="">
-                        @*// 0:00 to 08:00 marked block.*@
-                        <div class="morning_block"></div>
-                        @*// 21:00 to 24:00 marked block.*@
-                        <div class="evening_block"></div>
-                        <display-bookings Booking=@Model.BookingList Id=@res.ResId Date="@ViewBag.ForwardDates[next]"></display-bookings>
-                        <div class="data-item" data-rgid="" data-rid="" data-date="@ViewBag.ForwardDates[next]" value="@wday">
-                            <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                        </div>
+                    <div id="@(res.ResId + "_" + ViewBag.ForwardDates[next])" title="@res.Unit.ShortName | @res.ResName | @ViewBag.ForwardDates[next]" class="overview-item dotip_building" data-rgid="@res.Unit.UnitId" data-rid="@res.ResId">
+                        @*Tillfälligt bortkommenterat
+                        <a class="text-dark" asp-controller="OverView" asp-action="OverviewDay" asp-route-id="@res.ResId" style="text-decoration: none">&nbsp;</a>*@
+                                @*// 0:00 to 08:00 marked block.*@
+                                <div class="morning_block"></div>
+                                @*// 21:00 to 24:00 marked block.*@
+                                <div class="evening_block"></div>
+                                <display-bookings Booking=@Model.BookingList User=@Model.UserList Id=@res.ResId Date="@ViewBag.ForwardDates[next]"></display-bookings>
+                                
                         @{next++;}
                     </div>
-                }
+                            }
                 @{next = 0;}
             </div>
             @*@await Html.PartialAsync("_WeekDays")*@
         }
 
-        @*@*<div class="list-row" data-rid="15">
-                <div class="overview-item-short dotip_building" data-ttip="#rg8" title="MÖT">MÖT</div>
-                <div class="overview-item-short room_id_btn" data-rgid="8" data-rid="15">Mötesrum</div>
-            </div>
-            <div class="list-row" data-rid="30">
-                <div class="overview-item-short dotip_building" data-ttip="#rg7" title="BIL">BIL</div>
-                <div class="overview-item-short room_id_btn" data-rgid="7" data-rid="30">VW E-UP</div>
-            </div>
-            <div class="list-row" data-rid="17">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="17">Café</div>
-            </div>
-            <div class="list-row" data-rid="18">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="3">sal 11</div>
-            </div>
-
-            <div class="list-row" data-rid="27">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="27">
-                    <a class="text-dark" asp-controller="OverView" asp-action="OverviewResource" style="text-decoration: none">sal 13</a>
-                </div>
-            </div>
-            <div class="list-row" data-rid="2">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="2">sal 17</div>
-            </div>
-            <div class="list-row" data-rid="4">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="4">Silver</div>
-            </div>
-            <div class="list-row" data-rid="16">
-                <div class="overview-item-short dotip_building" data-ttip="#rg1" title="RES">RES</div>
-                <div class="overview-item-short room_id_btn" data-rgid="1" data-rid="16">Träslöjd</div>
-            </div>
-            <div class="list-row" data-rid="19">
-                <div class="overview-item-short dotip_building" data-ttip="#rg4" title="RET">RET</div>
-                <div class="overview-item-short room_id_btn" data-rgid="4" data-rid="19">Teater</div>
-            </div>*@
+        
     </div>
 
     @await Html.PartialAsync("Overview/_WeekHeader")
 
     @await Html.PartialAsync("Overview/_WeekNavigationBtm")
-    @*<div id="wrd-nav-box_top" class="wrd-nav-box">
-            <div id="prev-wk-btn_top" class="button left prev-wk-btn change_week" alt="Föregående vecka(@ViewBag.Dagens-7)" title="Föregående vecka(@ViewBag.Dagens-7)"><<< -1 Vecka</div>
-            <label id="date-select-lbl_btm" for="date-select-input_btm" class="left date-select-lbl">Datum: </label>
-            <input id="date-select-input_btm" type="text" class="left date-select-input" value="@ViewBag.Dagens">
-            <label id="week_num_btm_lbl" for="week-num_btm" class="left week_num_lbl">Vecka: </label>
-            <div id="wk_select_btm" class="left week-num">
-                <select id="wk_selector_top" class="wk_selector">
-                    @for (var vecka = 1; vecka <= ViewBag.yearWeeks; vecka++)
-                    {
-                        if (vecka == ViewBag.vecka)
-                        {
-                            <option selected>@vecka</option>
-                        }
-                        else
-                        {
-                            <option>@vecka</option>
-                        }
-                    }
-
-                </select>
-            </div>
-            <div id="next-wk-btn_top" class="button right next-wk-btn change_week" alt="Nästa vecka(@ViewBag.Dagens+7)">+1 Vecka >>></div>
-        </div>*@
+    
 </div>
 
 <div id="content-3"></div>
@@ -295,7 +220,8 @@
     let usersFromViewModel = @Html.Raw(Json.Serialize(Model.UserList));
     console.log(usersFromViewModel);
 
-    $(".overview-item").on('click', function () {
+        //$(".overview-item").on('click', function () {
+    $(".dotip").on('click', function () {
         let el = $(this);
         let IdAndDate = $(this).attr("id");
         const [ resourceId, currentDate ] = IdAndDate.split("_");
